@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("antialiased", dmMono.variable, orbitron.variable, "font-sans", geist.variable)}
+      className={cn("dark antialiased", dmMono.variable, orbitron.variable, "font-sans", geist.variable)}
     >
       <body>{children}</body>
     </html>
