@@ -59,7 +59,7 @@ export default function AboutSection() {
         scale: 1.05,
         filter: "brightness(1) blur(0px)",
         opacity: 1,
-        duration: 3,
+        duration: 1.2,
         ease: "power2.out",
       });
 
@@ -68,13 +68,13 @@ export default function AboutSection() {
         x: 0,
         opacity: 1,
         filter: "blur(0px)",
-        duration: 2,
+        duration: 1.2,
         ease: "power3.out",
         boxShadow: "0 0 60px rgba(255,255,255,0.02)",
         onComplete: () => {
           setBooted(true);
         }
-      }, "-=2.2");
+      }, "-=0.8");
 
     }, containerRef);
 
@@ -89,7 +89,7 @@ export default function AboutSection() {
 
     if (activeCmdIndex === -1) {
        // Initial pause before first command
-       const timer = setTimeout(() => setActiveCmdIndex(0), 800);
+       const timer = setTimeout(() => setActiveCmdIndex(0), 300);
        return () => clearTimeout(timer);
     }
 
@@ -97,10 +97,10 @@ export default function AboutSection() {
 
     // Typing the command characters
     if (activeCharIndex < currentCmd.length) {
-      // Simulate random human typing speed (30ms to 90ms)
-      let delay = Math.random() * 60 + 30;
-      // Occasional longer hesitation to feel human (5% chance of 200-400ms pause)
-      if (Math.random() < 0.05) delay += Math.random() * 200 + 200; 
+      // Simulate faster typing speed (10ms to 30ms)
+      let delay = Math.random() * 20 + 10;
+      // Less frequent hesitation (2% chance)
+      if (Math.random() < 0.02) delay += Math.random() * 50 + 50; 
 
       const timer = setTimeout(() => {
         setActiveCharIndex(prev => prev + 1);
@@ -113,14 +113,14 @@ export default function AboutSection() {
         // Pause before showing output (processing execution)
         const timer = setTimeout(() => {
           setShowOutputFor(activeCmdIndex);
-        }, Math.random() * 300 + 200); 
+        }, Math.random() * 100 + 50); 
         return () => clearTimeout(timer);
       } else {
         // Output is shown. Wait before typing next command
         const timer = setTimeout(() => {
           setActiveCmdIndex(prev => prev + 1);
           setActiveCharIndex(0);
-        }, Math.random() * 600 + 400); 
+        }, Math.random() * 150 + 100); 
         return () => clearTimeout(timer);
       }
     }
