@@ -301,9 +301,10 @@ export default function ContactSection() {
               className="contact-reveal hidden md:flex absolute top-[60%] left-[5%] flex-col items-center justify-center p-4 w-[110px] h-[110px] rounded-2xl bg-white/[0.01] backdrop-blur-md border border-white/[0.04] shadow-lg pointer-events-none"
             >
               <Code2 className="w-5 h-5 text-white/40 mb-2" />
-              <span className="text-xl font-bold text-white mb-1">15+</span>
+              <span className="text-xl font-bold text-white mb-1">2+</span>
               <span className="text-[8px] text-white/40 uppercase tracking-widest text-center">Projects</span>
             </div>
+            
 
             <div 
               ref={el => { if (el) floatingElementsRef.current[5] = el; }}

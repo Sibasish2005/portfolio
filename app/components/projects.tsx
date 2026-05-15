@@ -28,7 +28,7 @@ const projects = [
     problem: "Traditional rural governance workflows are fragmented, manual, and difficult for citizens to access.",
     solution: "Built a digital-first governance platform enabling streamlined citizen services and administrative workflows.",
     impact: "Designed scalable multi-role architecture for real-world governance digitization.",
-    stack: ["Next.js", "FastAPI", "PostgreSQL", "AWS", "Docker"],
+    stack: ["Next.js", "FastAPI", "PostgreSQL",],
     liveUrl: "https://digi-panch.vercel.app/",
     githubUrl: "",
     image: "/project-section/digi-panch.png"
@@ -82,13 +82,13 @@ export default function ProjectsSection() {
       const panels = gsap.utils.toArray<HTMLElement>('.project-panel');
       
       // Global initial states setup
-      gsap.set(panels.slice(1), { autoAlpha: 0, scale: 1.02, filter: "blur(10px)" });
+      gsap.set(panels.slice(1), { autoAlpha: 0, scale: 1.05, filter: "blur(20px)" });
       gsap.set(panels[0], { autoAlpha: 1, scale: 1, filter: "blur(0px)" });
 
       panels.forEach((panel, i) => {
         const contentElems = panel.querySelectorAll('.project-content-stagger');
         if (i > 0) {
-           gsap.set(contentElems, { opacity: 0, y: 15 });
+           gsap.set(contentElems, { opacity: 0, y: 30 });
         }
       });
 
@@ -96,9 +96,15 @@ export default function ProjectsSection() {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=400%", // 4 panels
+          end: `+=${panels.length * 150}%`, // More scroll distance creates a slower, luxurious feel
           pin: true,
-          scrub: 1.2, // Smooth luxury scrub
+          scrub: 2.5, // High scrub value for extreme buttery smoothness
+          snap: {
+            snapTo: 1 / (panels.length - 1), 
+            duration: { min: 0.8, max: 1.5 }, // Slower, softer snap animation
+            delay: 0.01, // Detect stop almost immediately
+            ease: "power3.inOut" // Incredibly soft curve
+          }
         }
       });
 
@@ -117,12 +123,12 @@ export default function ProjectsSection() {
         const startTime = (i - 1) * 2 + 1;
 
         // Transition OUT previous panel
-        tl.to(prevPanel, { autoAlpha: 0, scale: 1.02, filter: "blur(10px)", duration: 1, ease: "power2.inOut" }, startTime);
-        tl.to(prevContent, { opacity: 0, y: -15, stagger: 0.03, duration: 0.4, ease: "power2.inOut" }, startTime);
+        tl.to(prevPanel, { autoAlpha: 0, scale: 0.95, filter: "blur(20px)", duration: 1.5, ease: "power3.inOut" }, startTime);
+        tl.to(prevContent, { opacity: 0, y: -30, stagger: 0.05, duration: 0.8, ease: "power3.inOut" }, startTime);
 
         // Transition IN current panel
-        tl.to(panel, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 1, ease: "power2.inOut" }, startTime);
-        tl.to(contentElems, { opacity: 1, y: 0, stagger: 0.05, duration: 0.6, ease: "power2.out" }, startTime + 0.4);
+        tl.to(panel, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 1.5, ease: "power3.inOut" }, startTime + 0.3);
+        tl.to(contentElems, { opacity: 1, y: 0, stagger: 0.05, duration: 0.8, ease: "power3.out" }, startTime + 0.8);
 
         // Pause on new panel
         tl.to({}, { duration: 1 });
