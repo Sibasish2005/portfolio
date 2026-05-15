@@ -89,7 +89,7 @@ export default function AboutSection() {
 
     if (activeCmdIndex === -1) {
        // Initial pause before first command
-       const timer = setTimeout(() => setActiveCmdIndex(0), 300);
+       const timer = setTimeout(() => setActiveCmdIndex(0), 500);
        return () => clearTimeout(timer);
     }
 
