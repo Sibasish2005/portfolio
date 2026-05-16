@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.sibasishdev.in"
+        }
+      ],
+      "destination": "https://sibasishdev.in/$1",
+      "permanent": true
+    }
+  ]
+}
