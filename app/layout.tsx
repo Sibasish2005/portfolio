@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   publisher: siteConfig.siteName,
   category: "technology",
   alternates: {
-    canonical: "/",
+    canonical: "https://sibasishdev.in",
   },
   manifest: "/manifest.webmanifest",
   icons: {
