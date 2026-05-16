@@ -45,58 +45,85 @@ export default function AboutSection() {
   const [showOutputFor, setShowOutputFor] = useState(-1);
 
   useEffect(() => {
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
+
     const context = gsap.context(() => {
-      const timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "+=150%",
-          pin: true,
-          scrub: false,
-          toggleActions: "play none none reverse",
-          onLeaveBack: () => {
-            setBooted(false);
-            setActiveCmdIndex(-1);
-            setActiveCharIndex(0);
-            setShowOutputFor(-1);
+      if (mobile) {
+        /* Mobile: simple fade-in, no pin, no scroll gap */
+        gsap.from(leftImageRef.current, {
+          opacity: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 80%",
           },
-        },
-      });
-
-      gsap.set(leftImageRef.current, {
-        scale: 1,
-        filter: "brightness(0.1) blur(10px)",
-        opacity: 0,
-      });
-      gsap.set(rightPanelRef.current, {
-        x: 50,
-        opacity: 0,
-        filter: "blur(15px)",
-      });
-
-      timeline.to(leftImageRef.current, {
-        scale: 1.05,
-        filter: "brightness(1) blur(0px)",
-        opacity: 1,
-        duration: 1.2,
-        ease: "power2.out",
-      });
-
-      timeline.to(
-        rightPanelRef.current,
-        {
-          x: 0,
-          opacity: 1,
-          filter: "blur(0px)",
-          duration: 1.2,
+        });
+        gsap.from(rightPanelRef.current, {
+          opacity: 0,
+          y: 30,
+          duration: 1,
           ease: "power3.out",
-          boxShadow: "0 0 60px rgba(255,255,255,0.02)",
-          onComplete: () => {
-            setBooted(true);
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 70%",
           },
-        },
-        "-=0.8"
-      );
+          onComplete: () => setBooted(true),
+        });
+      } else {
+        /* Desktop: original cinematic pin animation */
+        const timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: "+=150%",
+            pin: true,
+            scrub: false,
+            toggleActions: "play none none reverse",
+            onLeaveBack: () => {
+              setBooted(false);
+              setActiveCmdIndex(-1);
+              setActiveCharIndex(0);
+              setShowOutputFor(-1);
+            },
+          },
+        });
+
+        gsap.set(leftImageRef.current, {
+          scale: 1,
+          filter: "brightness(0.1) blur(10px)",
+          opacity: 0,
+        });
+        gsap.set(rightPanelRef.current, {
+          x: 50,
+          opacity: 0,
+          filter: "blur(15px)",
+        });
+
+        timeline.to(leftImageRef.current, {
+          scale: 1.05,
+          filter: "brightness(1) blur(0px)",
+          opacity: 1,
+          duration: 1.2,
+          ease: "power2.out",
+        });
+
+        timeline.to(
+          rightPanelRef.current,
+          {
+            x: 0,
+            opacity: 1,
+            filter: "blur(0px)",
+            duration: 1.2,
+            ease: "power3.out",
+            boxShadow: "0 0 60px rgba(255,255,255,0.02)",
+            onComplete: () => {
+              setBooted(true);
+            },
+          },
+          "-=0.8"
+        );
+      }
     }, containerRef);
 
     return () => context.revert();
@@ -156,7 +183,7 @@ export default function AboutSection() {
       id="about"
       ref={containerRef}
       aria-labelledby="about-heading"
-      className="relative w-full h-screen overflow-hidden bg-black text-white perspective-[2000px]"
+      className="relative w-full h-[100dvh] md:h-screen overflow-hidden bg-black text-white perspective-[2000px]"
     >
       <h2 id="about-heading" className="sr-only">
         About Sibasish Chakraborti
@@ -224,7 +251,7 @@ export default function AboutSection() {
 
             <div
               ref={scrollRef}
-              className="flex-1 overflow-y-auto py-8 pl-8 pr-6 md:py-12 md:pl-16 md:pr-10 lg:pl-20 scrollbar-none scroll-smooth"
+              className="flex-1 overflow-y-auto py-6 px-5 md:py-12 md:pl-16 md:pr-10 lg:pl-20 scrollbar-none scroll-smooth"
               style={{ fontFamily: "var(--font-dm-mono)" }}
             >
               <div className="w-full space-y-8 md:space-y-10 pb-12">

@@ -162,7 +162,7 @@ export default function ContactSection() {
       id="contact"
       ref={containerRef}
       aria-labelledby="contact-heading"
-      className="relative w-full min-h-screen bg-[#050505] overflow-hidden flex flex-col items-center justify-center pt-32 pb-20 px-6 md:px-12 lg:px-20 z-10"
+      className="relative w-full min-h-[100dvh] bg-[#050505] overflow-hidden flex flex-col items-center justify-center pt-28 pb-20 px-6 md:px-12 lg:px-20 z-10"
     >
       <div
         aria-hidden="true"
@@ -184,7 +184,7 @@ export default function ContactSection() {
 
           <h2
             id="contact-heading"
-            className="text-5xl md:text-7xl lg:text-[6rem] leading-[0.95] font-bold text-white tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)] mb-8"
+            className="text-4xl md:text-7xl lg:text-[6rem] leading-[0.95] font-bold text-white tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)] mb-8"
           >
             <div className="overflow-hidden">
               <div className="headline-line">LET&apos;S BUILD</div>
@@ -209,7 +209,64 @@ export default function ContactSection() {
           </p>
         </div>
 
-        <div className="flex-1 relative min-h-[600px] flex items-center justify-center">
+        {/* Mobile: stacked contact cards */}
+        <div className="flex-1 lg:hidden flex flex-col gap-4 w-full">
+          {[
+            {
+              href: siteConfig.socialLinks.whatsapp,
+              label: "Chat on WhatsApp",
+              icon: MessageCircle,
+              title: "WhatsApp",
+              detail: "9863379440",
+            },
+            {
+              href: siteConfig.socialLinks.linkedIn,
+              label: "Open LinkedIn profile",
+              icon: Briefcase,
+              title: "LinkedIn",
+              detail: "/in/sibasish-chakraborti",
+            },
+            {
+              href: `mailto:${siteConfig.email}`,
+              label: "Send an email",
+              icon: Mail,
+              title: "Prefer Email?",
+              detail: siteConfig.email,
+            },
+            {
+              href: siteConfig.socialLinks.instagram,
+              label: "Open Instagram profile",
+              icon: Camera,
+              title: "Instagram",
+              detail: "@sibasish__chakraborti",
+            },
+          ].map(({ href, label, icon: Icon, title, detail }) => (
+            <a
+              key={title}
+              href={href}
+              target={href.startsWith("mailto:") ? undefined : "_blank"}
+              rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+              aria-label={label}
+              className="contact-reveal flex items-center gap-4 p-4 bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-2xl"
+            >
+              <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center shrink-0">
+                <Icon className="w-5 h-5 text-white" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-[10px] text-white/50 tracking-[0.2em] uppercase font-semibold mb-0.5">
+                  {title}
+                </p>
+                <p className="text-white text-sm font-medium tracking-wide truncate">
+                  {detail}
+                </p>
+              </div>
+              <ArrowUpRight className="w-4 h-4 text-white/30 shrink-0" />
+            </a>
+          ))}
+        </div>
+
+        {/* Desktop: floating cards with GSAP hover */}
+        <div className="hidden lg:flex flex-1 relative min-h-[600px] items-center justify-center">
           <div className="absolute w-full h-full">
             <a
               ref={(element) => {
@@ -224,7 +281,7 @@ export default function ContactSection() {
                 handleMouseMove(event, event.currentTarget)
               }
               onMouseLeave={(event) => handleMouseLeave(event.currentTarget)}
-              className="contact-reveal absolute top-[10%] left-[5%] md:left-[10%] group flex flex-col gap-4 p-6 w-[240px] md:w-[280px] bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl transition-shadow shadow-xl"
+              className="contact-reveal absolute top-[10%] left-[10%] group flex flex-col gap-4 p-6 w-[280px] bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl transition-shadow shadow-xl"
             >
               <div className="flex items-center justify-between">
                 <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
@@ -257,7 +314,7 @@ export default function ContactSection() {
                 handleMouseMove(event, event.currentTarget)
               }
               onMouseLeave={(event) => handleMouseLeave(event.currentTarget)}
-              className="contact-reveal absolute top-[30%] right-[0%] md:-right-[5%] lg:right-[5%] group flex flex-col gap-4 p-6 w-[260px] md:w-[300px] bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl transition-shadow shadow-xl z-20"
+              className="contact-reveal absolute top-[30%] -right-[5%] lg:right-[5%] group flex flex-col gap-4 p-6 w-[300px] bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl transition-shadow shadow-xl z-20"
             >
               <div className="flex items-center justify-between">
                 <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
@@ -288,7 +345,7 @@ export default function ContactSection() {
                 handleMouseMove(event, event.currentTarget)
               }
               onMouseLeave={(event) => handleMouseLeave(event.currentTarget)}
-              className="contact-reveal absolute bottom-[15%] left-[0%] md:left-[15%] group flex flex-col gap-4 p-6 w-[260px] md:w-[320px] bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl transition-shadow shadow-xl z-30"
+              className="contact-reveal absolute bottom-[15%] left-[15%] group flex flex-col gap-4 p-6 w-[320px] bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl transition-shadow shadow-xl z-30"
             >
               <div className="flex items-center justify-between">
                 <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
@@ -302,7 +359,7 @@ export default function ContactSection() {
                 <p className="text-[10px] text-white/50 tracking-[0.2em] uppercase font-semibold mb-1">
                   Prefer Email?
                 </p>
-                <p className="text-white text-xs md:text-sm font-medium tracking-wide">
+                <p className="text-white text-sm font-medium tracking-wide">
                   {siteConfig.email}
                 </p>
               </div>
@@ -321,7 +378,7 @@ export default function ContactSection() {
                 handleMouseMove(event, event.currentTarget)
               }
               onMouseLeave={(event) => handleMouseLeave(event.currentTarget)}
-              className="contact-reveal absolute bottom-[0%] right-[10%] md:right-[15%] group flex flex-col gap-4 p-6 w-[220px] md:w-[260px] bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl transition-shadow shadow-xl"
+              className="contact-reveal absolute bottom-[0%] right-[15%] group flex flex-col gap-4 p-6 w-[260px] bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl transition-shadow shadow-xl"
             >
               <div className="flex items-center justify-between">
                 <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">

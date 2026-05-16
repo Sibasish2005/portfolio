@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import NextImage from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -64,6 +65,7 @@ export default function HeroSection() {
 
   const [progress, setProgress] = useState(0);
   const [loaded, setLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const nameRef = useRef<HTMLDivElement>(null);
   const roleRef = useRef<HTMLDivElement>(null);
@@ -71,7 +73,17 @@ export default function HeroSection() {
   const skillsMobileRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
 
+  /* Detect mobile once on mount */
   useEffect(() => {
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    setIsMobile(mobile);
+    if (mobile) setLoaded(true);
+  }, []);
+
+  /* Preload frames — desktop only */
+  useEffect(() => {
+    if (isMobile) return;
+
     let count = 0;
     let cancelled = false;
 
@@ -116,10 +128,11 @@ export default function HeroSection() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [isMobile]);
 
+  /* GSAP scroll animation — desktop only */
   useEffect(() => {
-    if (!loaded) return;
+    if (!loaded || isMobile) return;
 
     const canvas = canvasRef.current;
     const section = sectionRef.current;
@@ -270,7 +283,7 @@ export default function HeroSection() {
       window.removeEventListener("resize", onResize);
       gsapContext.revert();
     };
-  }, [loaded]);
+  }, [loaded, isMobile]);
 
   return (
     <section
@@ -279,7 +292,7 @@ export default function HeroSection() {
       aria-labelledby="hero-title"
       aria-describedby="hero-summary"
       className="relative w-full"
-      style={{ height: "500vh" }}
+      style={{ height: isMobile ? "100vh" : "500vh" }}
     >
       <div className="sticky top-0 w-full h-screen overflow-hidden bg-black">
         <p id="hero-summary" className="sr-only">
@@ -288,11 +301,22 @@ export default function HeroSection() {
           cloud delivery.
         </p>
 
-        <canvas
-          ref={canvasRef}
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full"
-        />
+        {isMobile ? (
+          <NextImage
+            src="/mobile-hero-1.png"
+            alt="Hero background"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+        ) : (
+          <canvas
+            ref={canvasRef}
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full"
+          />
+        )}
 
         <div
           aria-hidden="true"
@@ -313,7 +337,7 @@ export default function HeroSection() {
           }}
         />
 
-        {!loaded && (
+        {!loaded && !isMobile && (
           <div
             className="absolute z-20 bottom-8 left-1/2 -translate-x-1/2 md:left-10 md:bottom-10 md:translate-x-0"
             style={{ fontFamily: "var(--font-dm-mono)" }}

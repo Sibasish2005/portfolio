@@ -98,11 +98,12 @@ export default function Navbar() {
               onClick={closeMenu}
               className="font-mono text-2xl uppercase tracking-widest text-white hover:text-white/60 transition-colors duration-300"
               style={{
-                transitionDelay: isMenuOpen ? `${i * 60}ms` : "0ms",
                 opacity: isMenuOpen ? 1 : 0,
                 transform: isMenuOpen ? "translateY(0)" : "translateY(20px)",
-                transition:
-                  "opacity 0.4s ease, transform 0.4s ease, color 0.3s ease",
+                transitionProperty: "opacity, transform, color",
+                transitionDuration: "0.4s, 0.4s, 0.3s",
+                transitionTimingFunction: "ease",
+                transitionDelay: isMenuOpen ? `${i * 60}ms` : "0ms",
               }}
             >
               {link}
