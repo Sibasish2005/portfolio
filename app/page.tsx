@@ -13,14 +13,14 @@ const homeDescription =
   "Explore the portfolio of Sibasish Chakraborti, featuring full-stack web development work across Next.js, React, FastAPI, cloud delivery, and product engineering.";
 
 export const metadata: Metadata = {
-  title: "Portfolio",
-  description: homeDescription,
+  title: siteConfig.title,
+  description: siteConfig.description,
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title: siteConfig.title,
-    description: homeDescription,
+    description: siteConfig.description,
     url: "/",
     images: [
       {
