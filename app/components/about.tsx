@@ -183,11 +183,21 @@ export default function AboutSection() {
       id="about"
       ref={containerRef}
       aria-labelledby="about-heading"
-      className="relative w-full h-[100dvh] md:h-screen overflow-hidden bg-black text-white perspective-[2000px]"
+      className="relative w-full min-h-[100dvh] md:h-screen overflow-hidden bg-black text-white perspective-[2000px]"
     >
       <h2 id="about-heading" className="sr-only">
         About Sibasish Chakraborti
       </h2>
+
+      {/* Crawlable content for Google — terminal text is client-rendered */}
+      <div className="sr-only" aria-hidden="true">
+        <p>Name: Sibasish Chakraborti</p>
+        <p>Role: Full Stack Developer</p>
+        <p>Specialization: Frontend Engineering, Backend Systems, Cloud Infrastructure, AI Integrations</p>
+        <p>Current Build: Digital Panchayat Platform</p>
+        <p>Tech Stack: Next.js, React, TypeScript, Node.js, FastAPI, Python, AWS, Docker, PostgreSQL, MongoDB, Tailwind CSS, shadcn/ui</p>
+        <p>Mission: Building scalable digital products that solve meaningful real-world problems.</p>
+      </div>
 
       <div className="relative z-10 w-full h-full flex flex-col md:flex-row">
         <div className="relative w-full md:w-1/2 h-[45%] md:h-full flex items-center justify-center overflow-hidden">

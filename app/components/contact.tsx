@@ -162,7 +162,7 @@ export default function ContactSection() {
       id="contact"
       ref={containerRef}
       aria-labelledby="contact-heading"
-      className="relative w-full min-h-[100dvh] bg-[#050505] overflow-hidden flex flex-col items-center justify-center pt-28 pb-20 px-6 md:px-12 lg:px-20 z-10"
+      className="relative w-full min-h-[100dvh] bg-[#050505] overflow-hidden flex flex-col items-center justify-center pt-28 pb-24 px-6 md:px-12 lg:px-20 z-10"
     >
       <div
         aria-hidden="true"
@@ -247,7 +247,7 @@ export default function ContactSection() {
               target={href.startsWith("mailto:") ? undefined : "_blank"}
               rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
               aria-label={label}
-              className="contact-reveal flex items-center gap-4 p-4 bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-2xl"
+              className="contact-reveal flex items-center gap-4 p-4 bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-2xl active:scale-[0.98] active:bg-white/[0.05] transition-transform duration-150"
             >
               <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center shrink-0">
                 <Icon className="w-5 h-5 text-white" />
@@ -441,7 +441,7 @@ export default function ContactSection() {
         </div>
       </div>
 
-      <footer className="absolute bottom-8 w-full text-center z-10">
+      <footer className="relative mt-16 lg:absolute lg:bottom-8 w-full text-center z-10">
         <p className="text-[10px] text-white/30 tracking-[0.2em] uppercase font-semibold">
           {"\u00A9"} {new Date().getFullYear()} Sibasish Chakraborti. All
           rights reserved.

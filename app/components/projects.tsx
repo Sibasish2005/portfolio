@@ -170,8 +170,12 @@ export default function ProjectsSection() {
         aria-labelledby="projects-heading"
         className="relative w-full bg-[#050505] py-20 px-4"
       >
-        <h2 id="projects-heading" className="sr-only">
-          Selected projects
+        <h2
+          id="projects-heading"
+          className="text-[10px] tracking-[0.3em] uppercase text-white/40 font-semibold mb-8 text-center"
+          style={{ fontFamily: "var(--font-dm-mono)" }}
+        >
+          Selected Projects
         </h2>
 
         <div className="flex flex-col gap-8">

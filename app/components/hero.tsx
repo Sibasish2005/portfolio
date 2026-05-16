@@ -130,6 +130,27 @@ export default function HeroSection() {
     };
   }, [isMobile]);
 
+  /* Mobile: simple entrance animation */
+  useEffect(() => {
+    if (!loaded || !isMobile) return;
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const ctx = gsap.context(() => {
+      const els = gsap.utils.toArray<HTMLElement>(".hero-mobile-stagger");
+      gsap.from(els, {
+        opacity: 0,
+        y: 24,
+        duration: 0.9,
+        stagger: 0.12,
+        ease: "power3.out",
+        delay: 0.2,
+      });
+    }, section);
+
+    return () => ctx.revert();
+  }, [loaded, isMobile]);
+
   /* GSAP scroll animation — desktop only */
   useEffect(() => {
     if (!loaded || isMobile) return;
@@ -292,7 +313,7 @@ export default function HeroSection() {
       aria-labelledby="hero-title"
       aria-describedby="hero-summary"
       className="relative w-full"
-      style={{ height: isMobile ? "100vh" : "500vh" }}
+      style={{ height: isMobile ? "100dvh" : "500vh" }}
     >
       <div className="sticky top-0 w-full h-screen overflow-hidden bg-black">
         <p id="hero-summary" className="sr-only">
@@ -363,13 +384,14 @@ export default function HeroSection() {
           className="absolute inset-0 pointer-events-none z-10"
           style={{ visibility: loaded ? "visible" : "hidden" }}
         >
+          {/* ── Desktop: absolute positioned overlays (unchanged) ── */}
           <div
             ref={nameRef}
-            className="absolute left-0 right-0 px-6 md:left-auto md:right-10 md:px-0 lg:right-16 md:max-w-[420px] bottom-52 md:bottom-44"
+            className="hidden md:block absolute left-auto right-10 lg:right-16 max-w-[420px] bottom-44"
           >
             <h1
               id="hero-title"
-              className="text-3xl md:text-6xl font-bold text-white leading-tight text-center md:text-right"
+              className="text-6xl font-bold text-white leading-tight text-right"
               style={{ fontFamily: "var(--font-orbitron)" }}
             >
               Sibasish
@@ -380,10 +402,10 @@ export default function HeroSection() {
 
           <div
             ref={roleRef}
-            className="absolute left-0 right-0 px-6 md:left-auto md:right-10 md:px-0 lg:right-16 md:max-w-[420px] bottom-44 md:bottom-32"
+            className="hidden md:block absolute left-auto right-10 lg:right-16 max-w-[420px] bottom-32"
             style={{ fontFamily: "var(--font-dm-mono)" }}
           >
-            <p className="text-xs md:text-sm uppercase tracking-widest md:tracking-[0.3em] text-white/50 text-center md:text-right">
+            <p className="text-sm uppercase tracking-[0.3em] text-white/50 text-right">
               Full Stack Developer
             </p>
           </div>
@@ -417,34 +439,71 @@ export default function HeroSection() {
           </div>
 
           <div
-            ref={skillsMobileRef}
-            className="md:hidden absolute bottom-24 left-0 right-0 px-6"
-            style={{ fontFamily: "var(--font-dm-mono)" }}
-          >
-            <div className="flex flex-col items-center gap-1">
-              {SKILLS_MOBILE.map((skill) => (
-                <p
-                  key={skill}
-                  className="text-[9px] tracking-widest uppercase text-white/30"
-                >
-                  {skill}
-                </p>
-              ))}
-            </div>
-          </div>
-
-          <div
             ref={ctaRef}
-            className="absolute left-0 right-0 px-8 md:left-10 md:right-auto md:px-0 lg:left-16 bottom-8 md:bottom-10 pointer-events-auto"
+            className="hidden md:block absolute left-10 lg:left-16 bottom-10 pointer-events-auto"
             style={{ fontFamily: "var(--font-dm-mono)" }}
           >
             <a
               href="#projects"
               aria-label="Jump to selected projects"
-              className="block w-4/5 mx-auto md:w-auto md:mx-0 md:inline-block text-center border border-white/20 px-8 py-3 text-[10px] tracking-[0.3em] uppercase text-white hover:bg-white hover:text-black transition-all duration-300"
+              className="inline-block text-center border border-white/20 px-8 py-3 text-[10px] tracking-[0.3em] uppercase text-white hover:bg-white hover:text-black transition-all duration-300"
             >
               View My Work {"\u2193"}
             </a>
+          </div>
+
+          {/* ── Mobile: flow-based layout to prevent overlap ── */}
+          <div className="md:hidden absolute inset-x-0 bottom-0 flex flex-col items-center px-6 pb-8 pt-4 gap-5 pointer-events-auto">
+            <div className="hero-mobile-stagger">
+              <h1
+                id="hero-title-mobile"
+                className="text-3xl font-bold text-white leading-tight text-center"
+                style={{ fontFamily: "var(--font-orbitron)" }}
+              >
+                Sibasish
+                <br />
+                Chakraborti
+              </h1>
+            </div>
+
+            <div
+              className="hero-mobile-stagger"
+              style={{ fontFamily: "var(--font-dm-mono)" }}
+            >
+              <p className="text-xs uppercase tracking-widest text-white/50 text-center">
+                Full Stack Developer
+              </p>
+            </div>
+
+            <div
+              ref={skillsMobileRef}
+              className="hero-mobile-stagger"
+              style={{ fontFamily: "var(--font-dm-mono)" }}
+            >
+              <div className="flex flex-wrap justify-center gap-x-4 gap-y-1">
+                {SKILLS_MOBILE.map((skill) => (
+                  <p
+                    key={skill}
+                    className="text-[9px] tracking-widest uppercase text-white/30"
+                  >
+                    {skill}
+                  </p>
+                ))}
+              </div>
+            </div>
+
+            <div
+              className="hero-mobile-stagger w-full"
+              style={{ fontFamily: "var(--font-dm-mono)" }}
+            >
+              <a
+                href="#projects"
+                aria-label="Jump to selected projects"
+                className="block w-4/5 mx-auto text-center border border-white/20 px-8 py-3 text-[10px] tracking-[0.3em] uppercase text-white hover:bg-white hover:text-black transition-all duration-300"
+              >
+                View My Work {"\u2193"}
+              </a>
+            </div>
           </div>
         </div>
       </div>
