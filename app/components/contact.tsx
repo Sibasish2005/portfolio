@@ -3,17 +3,18 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { 
-  ArrowUpRight, 
-  Mail, 
-  MessageCircle, 
-  Camera, 
+import {
+  ArrowUpRight,
   Briefcase,
+  Camera,
   Code2,
-  Layers,
+  Mail,
+  MessageCircle,
+  Terminal,
   Zap,
-  Terminal
 } from "lucide-react";
+
+import { siteConfig } from "@/lib/site";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,8 +23,7 @@ export default function ContactSection() {
   const floatingElementsRef = useRef<HTMLElement[]>([]);
 
   useEffect(() => {
-    let ctx = gsap.context(() => {
-      // Background parallax
+    const context = gsap.context(() => {
       gsap.to(".contact-bg", {
         yPercent: 20,
         ease: "none",
@@ -32,10 +32,9 @@ export default function ContactSection() {
           start: "top bottom",
           end: "bottom top",
           scrub: true,
-        }
+        },
       });
 
-      // Reveal animation
       gsap.from(".contact-reveal", {
         y: 30,
         opacity: 0,
@@ -45,7 +44,7 @@ export default function ContactSection() {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top 75%",
-        }
+        },
       });
 
       gsap.from(".headline-line", {
@@ -57,12 +56,11 @@ export default function ContactSection() {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top 75%",
-        }
+        },
       });
 
-      // Subtle Idle Breathing Motion
-      floatingElementsRef.current.forEach((el, index) => {
-        gsap.to(el, {
+      floatingElementsRef.current.forEach((element) => {
+        gsap.to(element, {
           y: "-=4",
           scale: 1.01,
           rotation: 0.5,
@@ -72,9 +70,9 @@ export default function ContactSection() {
           yoyo: true,
           ease: "sine.inOut",
         });
-        
-        // Micro animation for icons inside cards
-        const icon = el.querySelector('.lucide');
+
+        const icon = element.querySelector(".lucide");
+
         if (icon) {
           gsap.to(icon, {
             rotation: 2,
@@ -88,7 +86,7 @@ export default function ContactSection() {
       });
     }, containerRef);
 
-    return () => ctx.revert();
+    return () => context.revert();
   }, []);
 
   const handleMouseEnter = (target: HTMLElement) => {
@@ -102,19 +100,24 @@ export default function ContactSection() {
       ease: "power2.out",
       overwrite: "auto",
     });
-    const arrow = target.querySelector('.arrow-icon');
+
+    const arrow = target.querySelector(".arrow-icon");
+
     if (arrow) {
       gsap.to(arrow, { x: 3, y: -3, duration: 0.3, ease: "power2.out" });
     }
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>, target: HTMLElement) => {
+  const handleMouseMove = (
+    event: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>,
+    target: HTMLElement
+  ) => {
     const rect = target.getBoundingClientRect();
-    const x = (e.clientX - rect.left - rect.width / 2) * 0.05; // 3-8px max parallax
-    const y = (e.clientY - rect.top - rect.height / 2) * 0.05;
-    
+    const x = (event.clientX - rect.left - rect.width / 2) * 0.05;
+    const y = (event.clientY - rect.top - rect.height / 2) * 0.05;
+
     gsap.to(target, {
-      x: x,
+      x,
       y: -10 + y,
       duration: 0.2,
       ease: "power1.out",
@@ -131,15 +134,16 @@ export default function ContactSection() {
       borderColor: "rgba(255,255,255,0.08)",
       backgroundColor: "rgba(255,255,255,0.02)",
       duration: 0.6,
-      ease: "power2.out", // smooth, NO elastic bounce
+      ease: "power2.out",
       overwrite: "auto",
     });
-    const arrow = target.querySelector('.arrow-icon');
+
+    const arrow = target.querySelector(".arrow-icon");
+
     if (arrow) {
       gsap.to(arrow, { x: 0, y: 0, duration: 0.4, ease: "power2.out" });
     }
-    
-    // Restart idle breathing
+
     gsap.to(target, {
       y: "-=4",
       scale: 1.01,
@@ -149,27 +153,27 @@ export default function ContactSection() {
       yoyo: true,
       ease: "sine.inOut",
       delay: 0.6,
-      overwrite: "auto"
+      overwrite: "auto",
     });
   };
 
   return (
-    <section 
-      id="contact" 
-      ref={containerRef} 
+    <section
+      id="contact"
+      ref={containerRef}
+      aria-labelledby="contact-heading"
       className="relative w-full min-h-screen bg-[#050505] overflow-hidden flex flex-col items-center justify-center pt-32 pb-20 px-6 md:px-12 lg:px-20 z-10"
     >
-      {/* Deep Space / Atmospheric Background */}
-      <div className="contact-bg absolute inset-0 w-full h-[120%] -top-[10%] z-0 pointer-events-none opacity-40">
+      <div
+        aria-hidden="true"
+        className="contact-bg absolute inset-0 w-full h-[120%] -top-[10%] z-0 pointer-events-none opacity-40"
+      >
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/[0.03] via-[#050505] to-[#050505]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-white/[0.02] via-transparent to-transparent" />
-        {/* Subtle noise/texture overlay */}
-        <div className="absolute inset-0 opacity-[0.15] bg-[url('/noise.png')] mix-blend-overlay" />
+        <div className="absolute inset-0 opacity-[0.15] bg-[url('/noise.svg')] mix-blend-overlay" />
       </div>
 
       <div className="relative z-10 w-full max-w-[1500px] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24">
-        
-        {/* Left Column: Headline */}
         <div className="flex-1 flex flex-col justify-center">
           <div className="contact-reveal flex items-center gap-4 mb-8">
             <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
@@ -178,34 +182,48 @@ export default function ContactSection() {
             </span>
           </div>
 
-          <h2 className="text-5xl md:text-7xl lg:text-[6rem] leading-[0.95] font-bold text-white tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)] mb-8">
-            <div className="overflow-hidden"><div className="headline-line">LET'S BUILD</div></div>
-            <div className="overflow-hidden"><div className="headline-line text-white/40">SOMETHING</div></div>
+          <h2
+            id="contact-heading"
+            className="text-5xl md:text-7xl lg:text-[6rem] leading-[0.95] font-bold text-white tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)] mb-8"
+          >
             <div className="overflow-hidden">
-              <div className="headline-line">AWESOME <span className="inline-block hover:rotate-12 transition-transform duration-300">☻</span></div>
+              <div className="headline-line">LET&apos;S BUILD</div>
+            </div>
+            <div className="overflow-hidden">
+              <div className="headline-line text-white/40">SOMETHING</div>
+            </div>
+            <div className="overflow-hidden">
+              <div className="headline-line">
+                AWESOME{" "}
+                <span className="inline-block hover:rotate-12 transition-transform duration-300">
+                  {"\u263B"}
+                </span>
+              </div>
             </div>
           </h2>
-          
+
           <p className="contact-reveal text-white/60 text-sm md:text-base leading-relaxed max-w-md font-light">
-            I'm always open to discussing new opportunities, exciting projects, or just having a tech chat. Let's connect and create impact together.
+            I&apos;m always open to discussing new opportunities, exciting
+            projects, or just having a tech chat. Let&apos;s connect and create
+            impact together.
           </p>
         </div>
 
-        {/* Right Column: Floating Anti-Gravity Cards */}
         <div className="flex-1 relative min-h-[600px] flex items-center justify-center">
-          
-          {/* Main Social Cards */}
           <div className="absolute w-full h-full">
-            
-            {/* WhatsApp */}
-            <a 
-              ref={el => { if (el) floatingElementsRef.current[0] = el; }}
-              href="https://wa.me/9863379440"
+            <a
+              ref={(element) => {
+                if (element) floatingElementsRef.current[0] = element;
+              }}
+              href={siteConfig.socialLinks.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
-              onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}
-              onMouseLeave={(e) => handleMouseLeave(e.currentTarget)}
+              aria-label="Chat on WhatsApp"
+              onMouseEnter={(event) => handleMouseEnter(event.currentTarget)}
+              onMouseMove={(event) =>
+                handleMouseMove(event, event.currentTarget)
+              }
+              onMouseLeave={(event) => handleMouseLeave(event.currentTarget)}
               className="contact-reveal absolute top-[10%] left-[5%] md:left-[10%] group flex flex-col gap-4 p-6 w-[240px] md:w-[280px] bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl transition-shadow shadow-xl"
             >
               <div className="flex items-center justify-between">
@@ -217,20 +235,28 @@ export default function ContactSection() {
                 </div>
               </div>
               <div>
-                <h4 className="text-[10px] text-white/50 tracking-[0.2em] uppercase font-semibold mb-1">WhatsApp</h4>
-                <p className="text-white text-sm font-medium tracking-wide">9863379440</p>
+                <p className="text-[10px] text-white/50 tracking-[0.2em] uppercase font-semibold mb-1">
+                  WhatsApp
+                </p>
+                <p className="text-white text-sm font-medium tracking-wide">
+                  9863379440
+                </p>
               </div>
             </a>
 
-            {/* LinkedIn */}
-            <a 
-              ref={el => { if (el) floatingElementsRef.current[1] = el; }}
-              href="https://www.linkedin.com/in/sibasish-chakraborti-5b55b82b1/"
+            <a
+              ref={(element) => {
+                if (element) floatingElementsRef.current[1] = element;
+              }}
+              href={siteConfig.socialLinks.linkedIn}
               target="_blank"
               rel="noopener noreferrer"
-              onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
-              onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}
-              onMouseLeave={(e) => handleMouseLeave(e.currentTarget)}
+              aria-label="Open LinkedIn profile"
+              onMouseEnter={(event) => handleMouseEnter(event.currentTarget)}
+              onMouseMove={(event) =>
+                handleMouseMove(event, event.currentTarget)
+              }
+              onMouseLeave={(event) => handleMouseLeave(event.currentTarget)}
               className="contact-reveal absolute top-[30%] right-[0%] md:-right-[5%] lg:right-[5%] group flex flex-col gap-4 p-6 w-[260px] md:w-[300px] bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl transition-shadow shadow-xl z-20"
             >
               <div className="flex items-center justify-between">
@@ -242,18 +268,26 @@ export default function ContactSection() {
                 </div>
               </div>
               <div>
-                <h4 className="text-[10px] text-white/50 tracking-[0.2em] uppercase font-semibold mb-1">LinkedIn</h4>
-                <p className="text-white/90 text-xs leading-relaxed line-clamp-1">/in/sibasish-chakraborti</p>
+                <p className="text-[10px] text-white/50 tracking-[0.2em] uppercase font-semibold mb-1">
+                  LinkedIn
+                </p>
+                <p className="text-white/90 text-xs leading-relaxed line-clamp-1">
+                  /in/sibasish-chakraborti
+                </p>
               </div>
             </a>
 
-            {/* Email */}
-            <a 
-              ref={el => { if (el) floatingElementsRef.current[2] = el; }}
-              href="mailto:sibasishchakraborti@gmail.com"
-              onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
-              onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}
-              onMouseLeave={(e) => handleMouseLeave(e.currentTarget)}
+            <a
+              ref={(element) => {
+                if (element) floatingElementsRef.current[2] = element;
+              }}
+              href={`mailto:${siteConfig.email}`}
+              aria-label="Send an email"
+              onMouseEnter={(event) => handleMouseEnter(event.currentTarget)}
+              onMouseMove={(event) =>
+                handleMouseMove(event, event.currentTarget)
+              }
+              onMouseLeave={(event) => handleMouseLeave(event.currentTarget)}
               className="contact-reveal absolute bottom-[15%] left-[0%] md:left-[15%] group flex flex-col gap-4 p-6 w-[260px] md:w-[320px] bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl transition-shadow shadow-xl z-30"
             >
               <div className="flex items-center justify-between">
@@ -265,20 +299,28 @@ export default function ContactSection() {
                 </div>
               </div>
               <div>
-                <h4 className="text-[10px] text-white/50 tracking-[0.2em] uppercase font-semibold mb-1">Prefer Email?</h4>
-                <p className="text-white text-xs md:text-sm font-medium tracking-wide">sibasishchakraborti@gmail.com</p>
+                <p className="text-[10px] text-white/50 tracking-[0.2em] uppercase font-semibold mb-1">
+                  Prefer Email?
+                </p>
+                <p className="text-white text-xs md:text-sm font-medium tracking-wide">
+                  {siteConfig.email}
+                </p>
               </div>
             </a>
 
-            {/* Instagram */}
-            <a 
-              ref={el => { if (el) floatingElementsRef.current[3] = el; }}
-              href="https://instagram.com/sibasish__chakraborti"
+            <a
+              ref={(element) => {
+                if (element) floatingElementsRef.current[3] = element;
+              }}
+              href={siteConfig.socialLinks.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
-              onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}
-              onMouseLeave={(e) => handleMouseLeave(e.currentTarget)}
+              aria-label="Open Instagram profile"
+              onMouseEnter={(event) => handleMouseEnter(event.currentTarget)}
+              onMouseMove={(event) =>
+                handleMouseMove(event, event.currentTarget)
+              }
+              onMouseLeave={(event) => handleMouseLeave(event.currentTarget)}
               className="contact-reveal absolute bottom-[0%] right-[10%] md:right-[15%] group flex flex-col gap-4 p-6 w-[220px] md:w-[260px] bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl transition-shadow shadow-xl"
             >
               <div className="flex items-center justify-between">
@@ -290,49 +332,64 @@ export default function ContactSection() {
                 </div>
               </div>
               <div>
-                <h4 className="text-[10px] text-white/50 tracking-[0.2em] uppercase font-semibold mb-1">Instagram</h4>
-                <p className="text-white/90 text-xs font-medium">@sibasish__chakraborti</p>
+                <p className="text-[10px] text-white/50 tracking-[0.2em] uppercase font-semibold mb-1">
+                  Instagram
+                </p>
+                <p className="text-white/90 text-xs font-medium">
+                  @sibasish__chakraborti
+                </p>
               </div>
             </a>
 
-            {/* Small Stat Cards Floating Around */}
-            <div 
-              ref={el => { if (el) floatingElementsRef.current[4] = el; }}
+            <div
+              ref={(element) => {
+                if (element) floatingElementsRef.current[4] = element;
+              }}
               className="contact-reveal hidden md:flex absolute top-[60%] left-[5%] flex-col items-center justify-center p-4 w-[110px] h-[110px] rounded-2xl bg-white/[0.01] backdrop-blur-md border border-white/[0.04] shadow-lg pointer-events-none"
             >
               <Code2 className="w-5 h-5 text-white/40 mb-2" />
               <span className="text-xl font-bold text-white mb-1">2+</span>
-              <span className="text-[8px] text-white/40 uppercase tracking-widest text-center">Projects</span>
+              <span className="text-[8px] text-white/40 uppercase tracking-widest text-center">
+                Projects
+              </span>
             </div>
-            
 
-            <div 
-              ref={el => { if (el) floatingElementsRef.current[5] = el; }}
+            <div
+              ref={(element) => {
+                if (element) floatingElementsRef.current[5] = element;
+              }}
               className="contact-reveal hidden lg:flex absolute top-[15%] right-[25%] flex-col items-center justify-center p-4 w-[120px] h-[120px] rounded-2xl bg-white/[0.01] backdrop-blur-md border border-white/[0.04] shadow-lg pointer-events-none"
             >
               <Terminal className="w-5 h-5 text-white/40 mb-2" />
-              <span className="text-sm font-semibold text-white/80 mb-1 text-center">Problem<br/>Solver</span>
+              <span className="text-sm font-semibold text-white/80 mb-1 text-center">
+                Problem
+                <br />
+                Solver
+              </span>
             </div>
 
-            <div 
-              ref={el => { if (el) floatingElementsRef.current[6] = el; }}
+            <div
+              ref={(element) => {
+                if (element) floatingElementsRef.current[6] = element;
+              }}
               className="contact-reveal hidden md:flex absolute bottom-[35%] right-[5%] flex-col items-center justify-center p-4 w-[100px] h-[100px] rounded-2xl bg-white/[0.01] backdrop-blur-md border border-white/[0.04] shadow-lg pointer-events-none z-10"
             >
               <Zap className="w-5 h-5 text-white/40 mb-2" />
               <span className="text-xl font-bold text-white mb-1">100%</span>
-              <span className="text-[8px] text-white/40 uppercase tracking-widest text-center">Commitment</span>
+              <span className="text-[8px] text-white/40 uppercase tracking-widest text-center">
+                Commitment
+              </span>
             </div>
-
           </div>
         </div>
       </div>
-      
-      {/* Footer */}
-      <div className="absolute bottom-8 w-full text-center z-10">
+
+      <footer className="absolute bottom-8 w-full text-center z-10">
         <p className="text-[10px] text-white/30 tracking-[0.2em] uppercase font-semibold">
-          © {new Date().getFullYear()} Sibasish Chakraborti. All rights reserved.
+          {"\u00A9"} {new Date().getFullYear()} Sibasish Chakraborti. All
+          rights reserved.
         </p>
-      </div>
+      </footer>
     </section>
   );
 }
