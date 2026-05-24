@@ -84,10 +84,10 @@ export default function ProjectsSection() {
           start: "top top",
           end: `+=${panels.length * 50}%`,
           pin: true,
-          scrub: 0.2,
+          scrub: 0.8,
           snap: {
             snapTo: 1 / (panels.length - 1),
-            duration: 0.5,
+            duration: 0.8,
             delay: 0.01,
             ease: "power3.inOut",
           },
