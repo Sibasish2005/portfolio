@@ -43,6 +43,35 @@ export default function AboutSection() {
   const [activeCmdIndex, setActiveCmdIndex] = useState(-1);
   const [activeCharIndex, setActiveCharIndex] = useState(0);
   const [showOutputFor, setShowOutputFor] = useState(-1);
+  const [loginTime, setLoginTime] = useState("");
+
+  useEffect(() => {
+    const formatTerminalDate = (date: Date) => {
+      const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      const wday = weekdays[date.getDay()];
+      const mon = months[date.getMonth()];
+      const day = date.getDate();
+      const hh = String(date.getHours()).padStart(2, "0");
+      const mm = String(date.getMinutes()).padStart(2, "0");
+      const ss = String(date.getSeconds()).padStart(2, "0");
+      return `${wday} ${mon} ${day} ${hh}:${mm}:${ss}`;
+    };
+    setLoginTime(formatTerminalDate(new Date()));
+  }, []);
 
   useEffect(() => {
     const mobile = window.matchMedia("(max-width: 767px)").matches;
@@ -232,39 +261,34 @@ export default function AboutSection() {
         <div className="relative w-full md:w-1/2 h-[55%] md:h-full flex items-center justify-center p-4 md:p-8 lg:p-12 z-20">
           <Card
             ref={rightPanelRef}
-            className="relative w-full max-w-[850px] h-full max-h-[80vh] flex flex-col rounded-xl md:rounded-2xl overflow-hidden bg-white/[0.06] border border-white/[0.08] backdrop-blur-3xl"
-            style={{ boxShadow: "inset 0 0 40px rgba(255,255,255,0.01)" }}
+            className="relative w-full max-w-[850px] h-full max-h-[80vh] flex flex-col rounded-xl md:rounded-xl overflow-hidden bg-[#0d0d0d]/95 border border-white/10 backdrop-blur-3xl"
+            style={{ boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.75)" }}
           >
-            <div
-              aria-hidden="true"
-              className="absolute top-0 left-1/4 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"
-            />
-            <div
-              aria-hidden="true"
-              className="absolute bottom-0 left-1/4 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-white/5 to-transparent"
-            />
-
-            <div className="h-12 md:h-14 bg-white/[0.02] flex items-center px-6 shrink-0 relative overflow-hidden">
-              <p
-                className="text-[9px] md:text-[10px] tracking-[0.3em] uppercase text-white/30 font-medium"
-                style={{ fontFamily: "var(--font-orbitron)" }}
-              >
-                SYSTEM PROFILE // AUTHORIZED ACCESS
-              </p>
-              <div className="ml-auto flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-white/20 shadow-[0_0_8px_rgba(255,255,255,0.3)]" />
-                <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
+            {/* macOS Terminal Title Bar */}
+            <div className="h-10 md:h-12 bg-white/[0.05] flex items-center px-4 shrink-0 relative overflow-hidden border-b border-white/[0.05]">
+              <div className="flex items-center gap-2 z-10">
+                <div className="w-3 h-3 rounded-full bg-[#ff5f57] border border-black/20" />
+                <div className="w-3 h-3 rounded-full bg-[#febc2e] border border-black/20" />
+                <div className="w-3 h-3 rounded-full bg-[#28c840] border border-black/20" />
               </div>
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <p className="text-[13px] text-white/50 font-medium font-sans flex items-center gap-1.5">
+                  <svg className="w-4 h-4 text-[#52a8ff]" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z" /></svg>
+                  sibasish@MacBook-Pro ~ %
+                </p>
+              </div>
+             
             </div>
-
-            <Separator className="bg-white/[0.04] h-[1px]" />
 
             <div
               ref={scrollRef}
-              className="flex-1 overflow-y-auto py-6 px-5 md:py-12 md:pl-16 md:pr-10 lg:pl-20 scrollbar-none scroll-smooth"
-              style={{ fontFamily: "var(--font-dm-mono)" }}
+              className="flex-1 overflow-y-auto py-6 pr-6 pl-10 md:py-12 md:pr-12 md:pl-20 scrollbar-none scroll-smooth"
+              style={{ fontFamily: 'Menlo, Monaco, "SF Mono", monospace' }}
             >
-              <div className="w-full space-y-8 md:space-y-10 pb-12">
+              <div className="w-full pb-12 text-[13px] md:text-[14px] leading-relaxed">
+                <div className="text-[rgba(255,255,255,0.65)] mb-2 min-h-[1.5em]">
+                  {loginTime ? `Last login: ${loginTime} on ttys000` : "\u00A0"}
+                </div>
                 {commands.map((command, index) => {
                   if (index > activeCmdIndex) return null;
 
@@ -278,35 +302,35 @@ export default function AboutSection() {
                     switch (command.cmd) {
                       case "boot.profile()":
                         return (
-                          <div className="pl-7 text-white/40 text-[11px] md:text-[13px] tracking-wide leading-[2] whitespace-pre-wrap">
+                          <div className="pt-1 pb-3 text-[rgba(255,255,255,0.65)] whitespace-pre-wrap">
                             {command.output}
                           </div>
                         );
                       case "fetch.identity()":
                         return (
-                          <div className="pl-7 pt-2 pb-2 w-full pr-6">
-                            <div className="text-center text-white/90 text-sm md:text-base lg:text-lg tracking-[0.4em] font-medium uppercase border-y border-white/[0.05] py-6 bg-white/[0.01]">
+                          <div className="pt-2 pb-4 w-full flex justify-center">
+                            <div className="text-[#ffffff] text-sm md:text-base tracking-[0.4em] md:tracking-[0.6em] font-medium uppercase">
                               {command.output}
                             </div>
                           </div>
                         );
                       case "fetch.role()":
                         return (
-                          <div className="pl-7 pt-1 pb-2 w-full">
-                            <div className="inline-block px-4 py-2 border border-white/10 bg-white/[0.03] text-white/70 text-xs md:text-sm tracking-[0.2em] rounded uppercase">
+                          <div className="pt-1 pb-3 w-full">
+                            <div className="text-white/90 tracking-wider uppercase">
                               {command.output}
                             </div>
                           </div>
                         );
                       case "fetch.specialization()":
                         return (
-                          <div className="pl-7 pt-2 pb-2 grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6 w-full max-w-2xl">
+                          <div className="pt-2 pb-3 grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-4 w-full max-w-2xl">
                             {command.output.split("\n").map((item) => (
                               <div
                                 key={item}
-                                className="flex items-center gap-3 text-white/50 text-[11px] md:text-[12px] tracking-widest uppercase"
+                                className="flex items-center gap-3 text-white/80 uppercase"
                               >
-                                <span className="w-1 h-1 bg-white/20 rounded-full" />
+                                <span className="text-white/60">•</span>
                                 {item}
                               </div>
                             ))}
@@ -314,46 +338,45 @@ export default function AboutSection() {
                         );
                       case "fetch.current_build()":
                         return (
-                          <div className="pl-7 pt-1 pb-2 flex items-center gap-4 w-full">
-                            <span className="w-2 h-2 rounded-full bg-blue-500/50 animate-pulse" />
-                            <span className="text-white/60 text-[11px] md:text-xs tracking-widest uppercase">
+                          <div className="pt-1 pb-3 w-full">
+                            <span className="text-white/90 tracking-wider uppercase">
                               {command.output}
                             </span>
                           </div>
                         );
                       case "fetch.tech_stack()":
                         return (
-                          <div className="pl-7 pt-3 pb-2 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-y-4 gap-x-4 w-full">
+                          <div className="pt-2 pb-3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-y-3 gap-x-4 w-full">
                             {command.output.split("\n").map((tech) => (
                               <div
                                 key={tech}
-                                className="flex items-center gap-2 text-white/40 text-[10px] md:text-[11px] tracking-wider uppercase"
+                                className="flex items-center gap-2 text-white/80 uppercase"
                               >
-                                <span className="text-white/20">/</span> {tech}
+                                <span className="text-white/50">/</span> {tech}
                               </div>
                             ))}
                           </div>
                         );
                       case "fetch.mission()":
                         return (
-                          <div className="pl-7 pt-4 pb-2 w-full max-w-2xl pr-6">
-                            <div className="border-l-2 border-white/20 pl-6 py-2 text-white/50 text-xs md:text-[13px] leading-relaxed tracking-widest italic">
+                          <div className="pt-2 pb-3 w-full max-w-3xl">
+                            <div className="text-white/80 leading-relaxed italic">
                               &quot;{command.output.replace("\n", " ")}&quot;
                             </div>
                           </div>
                         );
                       case "status.ready()":
                         return (
-                          <div className="pl-7 pt-2 pb-2 flex items-center gap-3">
-                            <span className="w-1.5 h-1.5 bg-green-500 rounded-full shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse" />
-                            <span className="text-green-400/80 tracking-[0.2em] text-[10px] md:text-xs uppercase">
+                          <div className="pt-2 pb-3 flex items-center gap-2">
+                            <svg className="w-4 h-4 text-[#22c55e]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span className="text-[#22c55e] uppercase">
                               System Ready
                             </span>
                           </div>
                         );
                       default:
                         return (
-                          <div className="pl-7 text-white/40 text-[11px] md:text-[13px] tracking-wide leading-[2] whitespace-pre-wrap">
+                          <div className="pt-1 pb-3 text-[rgba(255,255,255,0.65)] whitespace-pre-wrap">
                             {command.output}
                           </div>
                         );
@@ -362,20 +385,20 @@ export default function AboutSection() {
 
                   return (
                     <React.Fragment key={command.cmd}>
-                      <div className="flex items-start gap-4 text-xs md:text-sm">
-                        <span className="text-white/20 shrink-0 mt-[1px] font-light">
-                          {">"}
+                      <div className="flex items-start gap-2">
+                        <span className="text-[#98c379] shrink-0 font-medium">
+                          sibasish@MacBook-Pro ~ %
                         </span>
-                        <span className="text-white/70 tracking-widest font-light break-all relative">
+                        <span className="text-[#ffffff] font-normal break-all relative">
                           {typedCmd}
                           {isCurrentCmd && !isOutputVisible && (
-                            <span className="inline-block w-1.5 h-[14px] md:h-[16px] bg-white/60 ml-1.5 align-middle animate-[pulse_0.8s_ease-in-out_infinite]" />
+                            <span className="inline-block w-[7px] h-[15px] bg-white/80 ml-1 align-middle animate-[pulse_1s_step-end_infinite]" />
                           )}
                         </span>
                       </div>
 
                       {isOutputVisible && command.output && (
-                        <div className="animate-in fade-in slide-in-from-top-1 duration-500">
+                        <div className="animate-in fade-in slide-in-from-top-1 duration-300">
                           {renderOutput()}
                         </div>
                       )}
@@ -384,11 +407,11 @@ export default function AboutSection() {
                 })}
 
                 {activeCmdIndex >= commands.length && (
-                  <div className="flex items-center gap-4 mt-8 pt-4">
-                    <span className="text-white/20 shrink-0 font-light">
-                      {">"}
+                  <div className="flex items-start gap-2 mt-2">
+                    <span className="text-[#98c379] shrink-0 font-medium">
+                      sibasish@MacBook-Pro ~ %
                     </span>
-                    <span className="w-1.5 h-[14px] md:h-[16px] bg-white/40 animate-[pulse_1s_ease-in-out_infinite]" />
+                    <span className="inline-block w-[7px] h-[15px] bg-white/80 ml-1 align-middle animate-[pulse_1s_step-end_infinite]" />
                   </div>
                 )}
               </div>
@@ -396,10 +419,9 @@ export default function AboutSection() {
 
             <div
               aria-hidden="true"
-              className="absolute inset-0 pointer-events-none overflow-hidden rounded-xl md:rounded-2xl opacity-10 mix-blend-overlay"
-            >
-              <div className="w-full h-full bg-[linear-gradient(to_bottom,rgba(255,255,255,0)_50%,rgba(0,0,0,0.5)_51%)] bg-[length:100%_4px]" />
-            </div>
+              className="absolute inset-0 pointer-events-none overflow-hidden rounded-xl md:rounded-xl opacity-20 mix-blend-overlay"
+              style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPHJlY3QgeD0iMSIgeT0iMSIgd2lkdGg9IjIiIGhlaWdodD0iMiIgZmlsbD0iIzAwMCIgZmlsbC1vcGFjaXR5PSIwLjA1Ii8+Cjwvc3ZnPg==')", backgroundSize: "6px 6px" }}
+            />
           </Card>
         </div>
       </div>

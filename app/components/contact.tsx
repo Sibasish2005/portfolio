@@ -62,27 +62,12 @@ export default function ContactSection() {
       floatingElementsRef.current.forEach((element) => {
         gsap.to(element, {
           y: "-=4",
-          scale: 1.01,
-          rotation: 0.5,
           duration: gsap.utils.random(3, 4),
           delay: gsap.utils.random(0, 1),
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut",
         });
-
-        const icon = element.querySelector(".lucide");
-
-        if (icon) {
-          gsap.to(icon, {
-            rotation: 2,
-            scale: 1.05,
-            duration: gsap.utils.random(2, 3),
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut",
-          });
-        }
       });
     }, containerRef);
 
@@ -146,8 +131,6 @@ export default function ContactSection() {
 
     gsap.to(target, {
       y: "-=4",
-      scale: 1.01,
-      rotation: 0.5,
       duration: gsap.utils.random(3, 4),
       repeat: -1,
       yoyo: true,
@@ -265,9 +248,11 @@ export default function ContactSection() {
           ))}
         </div>
 
-        {/* Desktop: floating cards with GSAP hover */}
-        <div className="hidden lg:flex flex-1 relative min-h-[600px] items-center justify-center">
-          <div className="absolute w-full h-full">
+        {/* Desktop: structured premium grid */}
+        <div className="hidden lg:flex flex-1 flex-col justify-center gap-6 relative min-h-[600px] w-full max-w-[650px] mx-auto z-20">
+          {/* Top Row: Asymmetrical Grid */}
+          <div className="grid grid-cols-[1.1fr_0.9fr] gap-6 w-full">
+            {/* WhatsApp */}
             <a
               ref={(element) => {
                 if (element) floatingElementsRef.current[0] = element;
@@ -281,26 +266,27 @@ export default function ContactSection() {
                 handleMouseMove(event, event.currentTarget)
               }
               onMouseLeave={(event) => handleMouseLeave(event.currentTarget)}
-              className="contact-reveal absolute top-[10%] left-[10%] group flex flex-col gap-4 p-6 w-[280px] bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl transition-shadow shadow-xl"
+              className="contact-reveal group flex flex-col justify-between p-8 w-full min-h-[180px] bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-[2rem] shadow-xl"
             >
-              <div className="flex items-center justify-between">
-                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center">
                   <MessageCircle className="w-6 h-6 text-white" />
                 </div>
-                <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center transition-colors">
-                  <ArrowUpRight className="arrow-icon w-4 h-4 opacity-50 transition-opacity" />
+                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center transition-colors">
+                  <ArrowUpRight className="arrow-icon w-5 h-5 text-white opacity-50 transition-opacity group-hover:opacity-100" />
                 </div>
               </div>
               <div>
                 <p className="text-[10px] text-white/50 tracking-[0.2em] uppercase font-semibold mb-1">
                   WhatsApp
                 </p>
-                <p className="text-white text-sm font-medium tracking-wide">
+                <p className="text-white text-base font-medium tracking-wide">
                   9863379440
                 </p>
               </div>
             </a>
 
+            {/* LinkedIn */}
             <a
               ref={(element) => {
                 if (element) floatingElementsRef.current[1] = element;
@@ -314,57 +300,30 @@ export default function ContactSection() {
                 handleMouseMove(event, event.currentTarget)
               }
               onMouseLeave={(event) => handleMouseLeave(event.currentTarget)}
-              className="contact-reveal absolute top-[30%] -right-[5%] lg:right-[5%] group flex flex-col gap-4 p-6 w-[300px] bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl transition-shadow shadow-xl z-20"
+              className="contact-reveal group flex flex-col justify-between p-8 w-full min-h-[180px] bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-[2rem] shadow-xl"
             >
-              <div className="flex items-center justify-between">
-                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center">
                   <Briefcase className="w-6 h-6 text-white" />
                 </div>
-                <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center transition-colors">
-                  <ArrowUpRight className="arrow-icon w-4 h-4 opacity-50 transition-opacity" />
+                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center transition-colors">
+                  <ArrowUpRight className="arrow-icon w-5 h-5 text-white opacity-50 transition-opacity group-hover:opacity-100" />
                 </div>
               </div>
               <div>
                 <p className="text-[10px] text-white/50 tracking-[0.2em] uppercase font-semibold mb-1">
                   LinkedIn
                 </p>
-                <p className="text-white/90 text-xs leading-relaxed line-clamp-1">
+                <p className="text-white/90 text-sm leading-relaxed line-clamp-1">
                   /in/sibasish-chakraborti
                 </p>
               </div>
             </a>
+          </div>
 
-            <a
-              ref={(element) => {
-                if (element) floatingElementsRef.current[2] = element;
-              }}
-              href={`mailto:${siteConfig.email}`}
-              aria-label="Send an email"
-              onMouseEnter={(event) => handleMouseEnter(event.currentTarget)}
-              onMouseMove={(event) =>
-                handleMouseMove(event, event.currentTarget)
-              }
-              onMouseLeave={(event) => handleMouseLeave(event.currentTarget)}
-              className="contact-reveal absolute bottom-[15%] left-[15%] group flex flex-col gap-4 p-6 w-[320px] bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl transition-shadow shadow-xl z-30"
-            >
-              <div className="flex items-center justify-between">
-                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
-                  <Mail className="w-6 h-6 text-white" />
-                </div>
-                <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center transition-colors">
-                  <ArrowUpRight className="arrow-icon w-4 h-4 opacity-50 transition-opacity" />
-                </div>
-              </div>
-              <div>
-                <p className="text-[10px] text-white/50 tracking-[0.2em] uppercase font-semibold mb-1">
-                  Prefer Email?
-                </p>
-                <p className="text-white text-sm font-medium tracking-wide">
-                  {siteConfig.email}
-                </p>
-              </div>
-            </a>
-
+          {/* Bottom Row: Asymmetrical Grid (reversed) */}
+          <div className="grid grid-cols-[0.9fr_1.1fr] gap-6 w-full">
+            {/* Instagram */}
             <a
               ref={(element) => {
                 if (element) floatingElementsRef.current[3] = element;
@@ -378,36 +337,70 @@ export default function ContactSection() {
                 handleMouseMove(event, event.currentTarget)
               }
               onMouseLeave={(event) => handleMouseLeave(event.currentTarget)}
-              className="contact-reveal absolute bottom-[0%] right-[15%] group flex flex-col gap-4 p-6 w-[260px] bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl transition-shadow shadow-xl"
+              className="contact-reveal group flex flex-col justify-between p-8 w-full min-h-[180px] bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-[2rem] shadow-xl"
             >
-              <div className="flex items-center justify-between">
-                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center">
                   <Camera className="w-6 h-6 text-white" />
                 </div>
-                <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center transition-colors">
-                  <ArrowUpRight className="arrow-icon w-4 h-4 opacity-50 transition-opacity" />
+                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center transition-colors">
+                  <ArrowUpRight className="arrow-icon w-5 h-5 text-white opacity-50 transition-opacity group-hover:opacity-100" />
                 </div>
               </div>
               <div>
                 <p className="text-[10px] text-white/50 tracking-[0.2em] uppercase font-semibold mb-1">
                   Instagram
                 </p>
-                <p className="text-white/90 text-xs font-medium">
+                <p className="text-white/90 text-sm font-medium">
                   @sibasish__chakraborti
                 </p>
               </div>
             </a>
 
+            {/* Email */}
+            <a
+              ref={(element) => {
+                if (element) floatingElementsRef.current[2] = element;
+              }}
+              href={`mailto:${siteConfig.email}`}
+              aria-label="Send an email"
+              onMouseEnter={(event) => handleMouseEnter(event.currentTarget)}
+              onMouseMove={(event) =>
+                handleMouseMove(event, event.currentTarget)
+              }
+              onMouseLeave={(event) => handleMouseLeave(event.currentTarget)}
+              className="contact-reveal group flex flex-col justify-between p-8 w-full min-h-[180px] bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-[2rem] shadow-xl"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center">
+                  <Mail className="w-6 h-6 text-white" />
+                </div>
+                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center transition-colors">
+                  <ArrowUpRight className="arrow-icon w-5 h-5 text-white opacity-50 transition-opacity group-hover:opacity-100" />
+                </div>
+              </div>
+              <div>
+                <p className="text-[10px] text-white/50 tracking-[0.2em] uppercase font-semibold mb-1">
+                  Prefer Email?
+                </p>
+                <p className="text-white text-base font-medium tracking-wide">
+                  {siteConfig.email}
+                </p>
+              </div>
+            </a>
+          </div>
+
+          {/* Stat Badges Row */}
+          <div className="flex items-center justify-between gap-4 mt-2 w-full">
             <div
               ref={(element) => {
                 if (element) floatingElementsRef.current[4] = element;
               }}
-              className="contact-reveal hidden md:flex absolute top-[60%] left-[5%] flex-col items-center justify-center p-4 w-[110px] h-[110px] rounded-2xl bg-white/[0.01] backdrop-blur-md border border-white/[0.04] shadow-lg pointer-events-none"
+              className="contact-reveal flex-1 flex items-center justify-center gap-3 py-4 px-2 rounded-[1.5rem] bg-white/[0.01] backdrop-blur-md border border-white/[0.04] shadow-lg pointer-events-none"
             >
-              <Code2 className="w-5 h-5 text-white/40 mb-2" />
-              <span className="text-xl font-bold text-white mb-1">2+</span>
-              <span className="text-[8px] text-white/40 uppercase tracking-widest text-center">
-                Projects
+              <Code2 className="w-4 h-4 text-white/40" />
+              <span className="text-[11px] font-semibold text-white/80 uppercase tracking-wider">
+                2+ Projects
               </span>
             </div>
 
@@ -415,13 +408,11 @@ export default function ContactSection() {
               ref={(element) => {
                 if (element) floatingElementsRef.current[5] = element;
               }}
-              className="contact-reveal hidden lg:flex absolute top-[15%] right-[25%] flex-col items-center justify-center p-4 w-[120px] h-[120px] rounded-2xl bg-white/[0.01] backdrop-blur-md border border-white/[0.04] shadow-lg pointer-events-none"
+              className="contact-reveal flex-1 flex items-center justify-center gap-3 py-4 px-2 rounded-[1.5rem] bg-white/[0.01] backdrop-blur-md border border-white/[0.04] shadow-lg pointer-events-none"
             >
-              <Terminal className="w-5 h-5 text-white/40 mb-2" />
-              <span className="text-sm font-semibold text-white/80 mb-1 text-center">
-                Problem
-                <br />
-                Solver
+              <Terminal className="w-4 h-4 text-white/40" />
+              <span className="text-[11px] font-semibold text-white/80 uppercase tracking-wider">
+                Problem Solver
               </span>
             </div>
 
@@ -429,12 +420,11 @@ export default function ContactSection() {
               ref={(element) => {
                 if (element) floatingElementsRef.current[6] = element;
               }}
-              className="contact-reveal hidden md:flex absolute bottom-[35%] right-[5%] flex-col items-center justify-center p-4 w-[100px] h-[100px] rounded-2xl bg-white/[0.01] backdrop-blur-md border border-white/[0.04] shadow-lg pointer-events-none z-10"
+              className="contact-reveal flex-1 flex items-center justify-center gap-3 py-4 px-2 rounded-[1.5rem] bg-white/[0.01] backdrop-blur-md border border-white/[0.04] shadow-lg pointer-events-none"
             >
-              <Zap className="w-5 h-5 text-white/40 mb-2" />
-              <span className="text-xl font-bold text-white mb-1">100%</span>
-              <span className="text-[8px] text-white/40 uppercase tracking-widest text-center">
-                Commitment
+              <Zap className="w-4 h-4 text-white/40" />
+              <span className="text-[11px] font-semibold text-white/80 uppercase tracking-wider">
+                100% Commitment
               </span>
             </div>
           </div>

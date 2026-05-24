@@ -82,12 +82,12 @@ export default function ProjectsSection() {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: `+=${panels.length * 150}%`,
+          end: `+=${panels.length * 50}%`,
           pin: true,
-          scrub: 2.5,
+          scrub: 0.2,
           snap: {
             snapTo: 1 / (panels.length - 1),
-            duration: { min: 0.8, max: 1.5 },
+            duration: 0.5,
             delay: 0.01,
             ease: "power3.inOut",
           },

@@ -227,7 +227,7 @@ export default function HeroSection() {
           trigger: section,
           start: "top top",
           end: "bottom bottom",
-          scrub: 0.1,
+          scrub: 0.7,
         },
       });
 
