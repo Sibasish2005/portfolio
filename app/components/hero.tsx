@@ -7,9 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const START_FRAME = 40;
-const END_FRAME = 154;
-const TOTAL_FRAMES = END_FRAME - START_FRAME + 1;
+import { useMobile } from "@/hooks/use-mobile";
 
 const SKILLS_DESKTOP = [
   {
@@ -51,22 +49,8 @@ const SKILLS_MOBILE = [
   "AWS",
 ];
 
-function frameSrc(index: number) {
-  return `/hero-section/ezgif-frame-${String(START_FRAME + index).padStart(3, "0")}.png`;
-}
-
-import { useMobile } from "@/hooks/use-mobile";
-
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imagesRef = useRef<(HTMLImageElement | null)[]>(
-    new Array(TOTAL_FRAMES).fill(null)
-  );
-  const frameRef = useRef(0);
-
-  const [progress, setProgress] = useState(0);
-  const [loaded, setLoaded] = useState(false);
   const isMobile = useMobile();
 
   const nameRef = useRef<HTMLDivElement>(null);
@@ -75,64 +59,9 @@ export default function HeroSection() {
   const skillsMobileRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
 
-  /* Set loaded true if mobile immediately */
-  useEffect(() => {
-    if (isMobile) setLoaded(true);
-  }, [isMobile]);
-
-  /* Preload frames — desktop only */
-  useEffect(() => {
-    if (isMobile) return;
-
-    let count = 0;
-    let cancelled = false;
-
-    for (let index = 0; index < TOTAL_FRAMES; index += 1) {
-      const image = new Image();
-      image.src = frameSrc(index);
-
-      image.onload = () => {
-        if (cancelled) return;
-
-        const markReady = () => {
-          if (cancelled) return;
-          imagesRef.current[index] = image;
-          count += 1;
-          setProgress(Math.round((count / TOTAL_FRAMES) * 100));
-
-          if (count === TOTAL_FRAMES) {
-            setLoaded(true);
-          }
-        };
-
-        if (image.decode) {
-          image.decode().then(markReady).catch(markReady);
-          return;
-        }
-
-        markReady();
-      };
-
-      image.onerror = () => {
-        if (cancelled) return;
-
-        count += 1;
-        setProgress(Math.round((count / TOTAL_FRAMES) * 100));
-
-        if (count === TOTAL_FRAMES) {
-          setLoaded(true);
-        }
-      };
-    }
-
-    return () => {
-      cancelled = true;
-    };
-  }, [isMobile]);
-
   /* Mobile: simple entrance animation */
   useEffect(() => {
-    if (!loaded || !isMobile) return;
+    if (!isMobile) return;
     const section = sectionRef.current;
     if (!section) return;
 
@@ -149,162 +78,69 @@ export default function HeroSection() {
     }, section);
 
     return () => ctx.revert();
-  }, [loaded, isMobile]);
+  }, [isMobile]);
 
-  /* GSAP scroll animation — desktop only */
+  /* GSAP load animation — desktop only text effects */
   useEffect(() => {
-    if (!loaded || isMobile) return;
-
-    const canvas = canvasRef.current;
+    if (isMobile) return;
     const section = sectionRef.current;
-
-    if (!canvas || !section) return;
-
-    const context = canvas.getContext("2d", { alpha: false });
-
-    if (!context) return;
-
-    const currentCanvas = canvas;
-    const currentContext = context;
-
-    let canvasWidth = 0;
-    let canvasHeight = 0;
-
-    function updateCanvasSize() {
-      const rect = currentCanvas.getBoundingClientRect();
-      canvasWidth = Math.round(rect.width);
-      canvasHeight = Math.round(rect.height);
-
-      if (
-        currentCanvas.width !== canvasWidth ||
-        currentCanvas.height !== canvasHeight
-      ) {
-        currentCanvas.width = canvasWidth;
-        currentCanvas.height = canvasHeight;
-      }
-    }
-
-    function render(index: number) {
-      const image = imagesRef.current[index];
-
-      if (!image || !image.naturalWidth) return;
-
-      const imageWidth = image.naturalWidth;
-      const imageHeight = image.naturalHeight;
-      const scale = Math.max(canvasWidth / imageWidth, canvasHeight / imageHeight);
-      const drawWidth = Math.round(imageWidth * scale);
-      const drawHeight = Math.round(imageHeight * scale);
-      const drawX = Math.round((canvasWidth - drawWidth) / 2);
-      const drawY = Math.round((canvasHeight - drawHeight) / 2);
-
-      currentContext.clearRect(0, 0, canvasWidth, canvasHeight);
-      currentContext.drawImage(
-        image,
-        0,
-        0,
-        imageWidth,
-        imageHeight,
-        drawX,
-        drawY,
-        drawWidth,
-        drawHeight
-      );
-    }
-
-    updateCanvasSize();
-    render(0);
-
-    function onResize() {
-      updateCanvasSize();
-      render(frameRef.current);
-    }
-
-    window.addEventListener("resize", onResize);
+    if (!section) return;
 
     const gsapContext = gsap.context(() => {
-      const timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 0.7,
-        },
-      });
-
-      const playhead = { frame: 0 };
-
-      timeline.to(
-        playhead,
-        {
-          frame: TOTAL_FRAMES - 1,
-          snap: "frame",
-          ease: "none",
-          duration: 1,
-          onUpdate: () => {
-            if (playhead.frame === frameRef.current) return;
-
-            frameRef.current = playhead.frame;
-            render(playhead.frame);
-          },
-        },
-        0
-      );
+      const timeline = gsap.timeline({ delay: 0.1 });
 
       function fade(
         element: HTMLElement | null,
-        start: number,
-        end: number,
+        startTime: number,
+        duration: number,
         scaleIn = false
       ) {
         if (!element) return;
 
         timeline.fromTo(
           element,
-          { autoAlpha: 0, y: scaleIn ? 0 : 30, scale: scaleIn ? 0.9 : 1 },
+          { autoAlpha: 0, y: scaleIn ? 0 : 40, scale: scaleIn ? 0.95 : 1 },
           {
             autoAlpha: 1,
             y: 0,
             scale: 1,
-            ease: "power1.out",
-            duration: end - start,
+            ease: "expo.out",
+            duration: duration,
           },
-          start
+          startTime
         );
       }
 
-      fade(nameRef.current, 0.12, 0.22);
-      fade(roleRef.current, 0.3, 0.38);
-      fade(skillsDesktopRef.current, 0.42, 0.52);
-      fade(skillsMobileRef.current, 0.42, 0.52);
+      fade(nameRef.current, 0.0, 2.0);
+      fade(roleRef.current, 0.3, 2.0);
+      fade(skillsDesktopRef.current, 0.6, 2.0);
+      fade(skillsMobileRef.current, 0.6, 2.0);
 
       if (skillsDesktopRef.current) {
         skillsDesktopRef.current
           .querySelectorAll<HTMLElement>("[data-sg]")
           .forEach((group, index) => {
-            const start = 0.43 + index * 0.013;
+            const start = 0.8 + index * 0.15;
 
             timeline.fromTo(
               group,
-              { autoAlpha: 0, y: 15 },
+              { autoAlpha: 0, y: 20 },
               {
                 autoAlpha: 1,
                 y: 0,
-                ease: "power1.out",
-                duration: 0.05,
+                ease: "expo.out",
+                duration: 1.8,
               },
               start
             );
           });
       }
 
-      fade(ctaRef.current, 0.64, 0.72, true);
+      fade(ctaRef.current, 1.2, 2.0, true);
     }, section);
 
-    return () => {
-      window.removeEventListener("resize", onResize);
-      gsapContext.revert();
-    };
-  }, [loaded, isMobile]);
+    return () => gsapContext.revert();
+  }, [isMobile]);
 
   return (
     <section
@@ -312,39 +148,41 @@ export default function HeroSection() {
       ref={sectionRef}
       aria-labelledby="hero-title"
       aria-describedby="hero-summary"
-      className="relative w-full"
-      style={{ height: isMobile ? "100dvh" : "500vh" }}
+      className="relative w-full h-[100dvh] md:h-screen"
     >
-      <div className="sticky top-0 w-full h-[100dvh] md:h-screen overflow-hidden bg-black">
-        <p id="hero-summary" className="sr-only">
-          Portfolio introduction for Sibasish Chakraborti, a full stack
-          developer specializing in Next.js, React, TypeScript, FastAPI, and
-          cloud delivery.
-        </p>
+      <div className="sticky top-0 w-full h-full overflow-hidden bg-black">
+        <div className="sr-only">
+          <h1 id="hero-summary">
+            Sibasish Chakraborti — Best Web Developer & Designer in Agartala, Tripura
+          </h1>
+          <p>
+            Welcome to the portfolio of Sibasish Chakraborti, the best web developer and web designer in Agartala, Tripura. 
+            As a top-rated full stack developer in Northeast India, Sibasish specializes in building premium websites, 
+            high-performance web applications, and scalable digital products using Next.js, React, TypeScript, FastAPI, Python, and AWS.
+          </p>
+          <p>
+            Looking for the best software developer in Tripura? Sibasish Chakraborti offers professional web development, 
+            web design, UI/UX design, e-commerce development, and cloud deployment services for businesses in Agartala, 
+            Tripura, and across India. Hire the top freelance web developer in Tripura for your next project.
+          </p>
+        </div>
 
-        {isMobile ? (
-          <NextImage
-            src="/mobile-hero-1.png"
-            alt="Hero background"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
-        ) : (
-          <canvas
-            ref={canvasRef}
-            aria-hidden="true"
-            className="absolute inset-0 w-full h-full"
-          />
-        )}
+        <NextImage
+          src={isMobile ? "/mobile-hero-1.png" : "/hero-section/hero image.png"}
+          alt="Hero background"
+          fill
+          priority
+          className="object-cover object-top opacity-85"
+          sizes="100vw"
+          quality={80}
+        />
 
         <div
           aria-hidden="true"
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.35) 100%)",
+              "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.15) 100%)",
           }}
         />
 
@@ -352,38 +190,13 @@ export default function HeroSection() {
           aria-hidden="true"
           className="absolute bottom-0 left-0 right-0 pointer-events-none"
           style={{
-            height: "60%",
+            height: "50%",
             background:
-              "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 40%, transparent 100%)",
+              "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 40%, transparent 100%)",
           }}
         />
 
-        {!loaded && !isMobile && (
-          <div
-            className="absolute z-20 bottom-8 left-1/2 -translate-x-1/2 md:left-10 md:bottom-10 md:translate-x-0"
-            style={{ fontFamily: "var(--font-dm-mono)" }}
-          >
-            <div className="flex items-center gap-3">
-              <div className="relative w-12 h-[1.5px] bg-white/10 overflow-hidden rounded-full">
-                <div
-                  className="absolute inset-y-0 left-0 bg-white/50 rounded-full"
-                  style={{
-                    width: `${progress}%`,
-                    transition: "width 150ms linear",
-                  }}
-                />
-              </div>
-              <span className="text-[10px] tracking-widest uppercase text-white/50 whitespace-nowrap">
-                Loading... {progress}%
-              </span>
-            </div>
-          </div>
-        )}
-
-        <div
-          className="absolute inset-0 pointer-events-none z-10"
-          style={{ visibility: loaded ? "visible" : "hidden" }}
-        >
+        <div className="absolute inset-0 pointer-events-none z-10">
           {/* ── Desktop: absolute positioned overlays (unchanged) ── */}
           <div
             ref={nameRef}

@@ -10,6 +10,7 @@ import {
   Code2,
   Mail,
   MessageCircle,
+  Phone,
   Terminal,
   Zap,
 } from "lucide-react";
@@ -155,6 +156,14 @@ export default function ContactSection() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-white/[0.02] via-transparent to-transparent" />
         <div className="absolute inset-0 opacity-[0.15] bg-[url('/noise.svg')] mix-blend-overlay" />
       </div>
+      {/* Crawlable SEO content */}
+      <div className="sr-only">
+        <h3>Contact Sibasish Chakraborti — Hire the Best Web Developer in Agartala, Tripura</h3>
+        <p>Get in touch with Sibasish Chakraborti, the best web developer and web designer in Agartala, Tripura. Available for freelance web development, full-time positions, and consulting projects.</p>
+        <p>Services: Website development, web application development, UI/UX design, e-commerce solutions, SEO optimization, cloud deployment, and digital product engineering. Serving businesses in Agartala, Tripura, Northeast India, and across India.</p>
+        <p>Contact: Email — sibasishchakraborti@gmail.com. Phone — +91 9863379440. WhatsApp — +91 9863379440. LinkedIn — Sibasish Chakraborti.</p>
+        <p>Location: Agartala, Tripura, India — 799001. The top freelance software developer in Tripura for hire.</p>
+      </div>
 
       <div className="relative z-10 w-full max-w-[1500px] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24">
         <div className="flex-1 flex flex-col justify-center">
@@ -170,14 +179,14 @@ export default function ContactSection() {
             className="text-4xl md:text-7xl lg:text-[6rem] leading-[0.95] font-bold text-white tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)] mb-8"
           >
             <div className="overflow-hidden">
-              <div className="headline-line">LET&apos;S BUILD</div>
+              <div className="headline-line">LET&apos;S WORK</div>
             </div>
             <div className="overflow-hidden">
-              <div className="headline-line text-white/40">SOMETHING</div>
+              <div className="headline-line text-white/40">TOGETHER</div>
             </div>
             <div className="overflow-hidden">
               <div className="headline-line">
-                AWESOME{" "}
+                ON YOUR IDEA{" "}
                 <span className="inline-block hover:rotate-12 transition-transform duration-300">
                   {"\u263B"}
                 </span>
@@ -186,10 +195,21 @@ export default function ContactSection() {
           </h2>
 
           <p className="contact-reveal text-white/60 text-sm md:text-base leading-relaxed max-w-md font-light">
-            I&apos;m always open to discussing new opportunities, exciting
-            projects, or just having a tech chat. Let&apos;s connect and create
-            impact together.
+            Whether you have a fully formed project or just an idea, I&apos;d love to hear about it. Let&apos;s discuss how we can bring your vision to life.
           </p>
+
+          <div className="contact-reveal mt-8 mb-4">
+            <p className="text-white/40 text-xs tracking-wider uppercase mb-3 font-semibold">In a hurry?</p>
+            <a href="tel:+919863379440" className="inline-flex items-center gap-4 px-6 py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl transition-all group active:scale-[0.98]">
+              <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
+                <Phone className="w-6 h-6 text-blue-400 group-hover:scale-110 transition-transform" />
+              </div>
+              <div>
+                <p className="text-white/60 text-xs font-medium uppercase tracking-wider mb-1">Call me directly</p>
+                <p className="text-white text-xl font-bold tracking-wide">+91 9863379440</p>
+              </div>
+            </a>
+          </div>
         </div>
 
         {/* Mobile: stacked contact cards */}

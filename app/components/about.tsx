@@ -209,14 +209,17 @@ export default function AboutSection() {
       </h2>
 
       {/* Crawlable content for Google — terminal text is client-rendered */}
-      <div className="sr-only" aria-hidden="true">
-        <h1>I am the best Web Designer and Web Developer in Agartala, Tripura</h1>
-        <p>Name: Sibasish Chakraborti - Top Software Developer in Tripura</p>
-        <p>Role: Full Stack Developer, Expert Web Designer, and Software Developer in Agartala.</p>
-        <p>Specialization: Frontend Engineering, Backend Systems, Cloud Infrastructure, AI Integrations. Providing the best web development services in Tripura.</p>
-        <p>Current Build: Digital Panchayat Platform - Empowering rural governance through software development.</p>
-        <p>Tech Stack: Next.js, React, TypeScript, Node.js, FastAPI, Python, AWS, Docker, PostgreSQL, MongoDB, Tailwind CSS, shadcn/ui</p>
-        <p>Mission: I'm on a mission to be the best web designer and web developer in Agartala, Tripura. Building scalable digital products that solve meaningful real-world problems and help local businesses grow.</p>
+      <div className="sr-only">
+        <h3>About Sibasish Chakraborti — Best Web Developer & Designer in Agartala, Tripura</h3>
+        <p>Name: Sibasish Chakraborti — Top Software Developer, Web Developer, and Web Designer in Agartala, Tripura.</p>
+        <p>Role: Full Stack Web Developer & Designer based in Agartala, Tripura, India. The best web developer in Tripura with expertise in modern web technologies.</p>
+        <p>Specialization: Frontend Engineering with Next.js and React, Backend Systems with FastAPI and Python, Cloud Infrastructure with AWS, AI Integrations with LangChain. Providing the best web development and web design services in Agartala, Tripura, and across Northeast India.</p>
+        <p>Services: Web development, web design, software development, UI/UX design, e-commerce development, business website development, SEO-optimized website design, and cloud deployment services. Available for freelance projects and full-time collaboration in Agartala, Tripura.</p>
+        <p>Current Build: DIGIPANCH — Digital Panchayat Platform empowering rural governance through innovative software development in Tripura.</p>
+        <p>Tech Stack: Next.js, React, TypeScript, JavaScript, Node.js, FastAPI, Python, AWS (Amplify, EC2, Cognito), Docker, PostgreSQL, MongoDB, DynamoDB, Tailwind CSS, shadcn/ui, Git.</p>
+        <p>Location: Agartala, Tripura, India (799001). Serving clients across Agartala, Tripura, Northeast India, and all of India.</p>
+        <p>Mission: I'm on a mission to be the best web designer and web developer in Agartala, Tripura. Building scalable digital products that solve meaningful real-world problems and help local businesses grow through premium web development services.</p>
+        <p>If you are looking for the best web developer in Agartala, the best web designer in Tripura, or a top software developer in Northeast India, contact Sibasish Chakraborti for world-class web development services.</p>
       </div>
 
       <div className="relative z-10 w-full flex-1 flex flex-col md:flex-row">

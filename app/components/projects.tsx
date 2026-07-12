@@ -173,6 +173,14 @@ export default function ProjectsSection() {
         aria-labelledby="projects-heading"
         className="relative w-full min-h-screen bg-[#050505] py-24 px-8 overflow-hidden"
       >
+        {/* Crawlable SEO content */}
+        <div className="sr-only">
+          <h3>Web Development Projects by Sibasish Chakraborti — Best Web Developer in Agartala, Tripura</h3>
+          <p>Explore the featured projects built by Sibasish Chakraborti, the best web developer and web designer in Agartala, Tripura. Each project showcases premium web development, modern UI/UX design, and full-stack engineering excellence using Next.js, React, FastAPI, and cloud technologies.</p>
+          <p>DIGIPANCH: AI-powered rural administration platform built for Tripura's governance digitization. POYODHARA: Premium product showcase website elevating local brands in Agartala. BEYOND PINKS: Fashion brand e-commerce storefront with conversion-focused design.</p>
+          <p>Hire the best software developer in Tripura for your next web development project. Professional web design and development services available in Agartala, Tripura, and across India.</p>
+        </div>
+
         <div className="max-w-md mx-auto space-y-16">
           <div className="text-center space-y-4">
             <div className="inline-flex items-center justify-center p-[1px] rounded-full bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-pink-500/30 mb-4">
@@ -268,9 +276,10 @@ export default function ProjectsSection() {
       aria-labelledby="projects-heading"
       className="relative w-full h-screen bg-[#050505] overflow-hidden flex items-center justify-center perspective-[2000px]"
     >
-      <h2 id="projects-heading" className="sr-only">
-        Selected projects
-      </h2>
+      <div className="sr-only">
+        <h2 id="projects-heading">Projects by Sibasish Chakraborti — Best Web Developer & Designer in Agartala, Tripura</h2>
+        <p>Featured web development projects showcasing full-stack engineering, modern web design, and cloud-deployed applications built by the top software developer in Tripura.</p>
+      </div>
 
       <div className="relative z-10 w-[92vw] max-w-[1700px] h-[82vh] rounded-[32px] overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.8)] border border-white/[0.08]">
         {portfolioProjects.map((project, index) => {

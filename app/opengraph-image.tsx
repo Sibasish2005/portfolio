@@ -112,8 +112,8 @@ export default function OpenGraphImage() {
                 color: "rgba(255,255,255,0.84)",
               }}
             >
-              Building high-performance web products with Next.js, React,
-              FastAPI, Python, and AWS.
+              Building high-performance web products in Agartala, Tripura — with
+              Next.js, React, FastAPI, Python, and AWS.
             </div>
           </div>
           <div

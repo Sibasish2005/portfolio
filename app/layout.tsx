@@ -82,6 +82,15 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: ["/twitter-image"],
   },
+  other: {
+    "geo.region": "IN-TR",
+    "geo.placename": "Agartala, Tripura",
+    "geo.position": `${siteConfig.location.latitude};${siteConfig.location.longitude}`,
+    "ICBM": `${siteConfig.location.latitude}, ${siteConfig.location.longitude}`,
+    "revisit-after": "7 days",
+    "rating": "general",
+    "distribution": "global",
+  },
 };
 
 export const viewport: Viewport = {
