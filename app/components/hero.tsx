@@ -315,7 +315,7 @@ export default function HeroSection() {
       className="relative w-full"
       style={{ height: isMobile ? "100dvh" : "500vh" }}
     >
-      <div className="sticky top-0 w-full h-screen overflow-hidden bg-black">
+      <div className="sticky top-0 w-full h-[100dvh] md:h-screen overflow-hidden bg-black">
         <p id="hero-summary" className="sr-only">
           Portfolio introduction for Sibasish Chakraborti, a full stack
           developer specializing in Next.js, React, TypeScript, FastAPI, and
@@ -441,7 +441,7 @@ export default function HeroSection() {
 
 
           {/* ── Mobile: flow-based layout to prevent overlap ── */}
-          <div className="md:hidden absolute inset-x-0 bottom-0 flex flex-col items-center px-8 pb-10 pt-4 gap-5 pointer-events-auto">
+          <div className="md:hidden absolute inset-x-0 bottom-0 flex flex-col items-center px-8 pb-16 pt-4 gap-5 pointer-events-auto">
             <div className="hero-mobile-stagger">
               <h1
                 id="hero-title-mobile"
