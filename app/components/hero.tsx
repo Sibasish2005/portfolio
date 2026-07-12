@@ -445,7 +445,7 @@ export default function HeroSection() {
             <div className="hero-mobile-stagger">
               <h1
                 id="hero-title-mobile"
-                className="text-4xl xs:text-5xl font-light text-white leading-[1.1] tracking-tight text-center"
+                className="text-4xl xs:text-5xl font-light text-white leading-snug tracking-tight text-center pb-2"
                 style={{ fontFamily: "var(--font-orbitron)" }}
               >
                 Sibasish
