@@ -20,6 +20,11 @@ import {
 
 import { portfolioProjects } from "@/lib/site";
 
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+
 gsap.registerPlugin(ScrollTrigger);
 
 const BADGE_ICONS: Record<string, LucideIcon> = {
@@ -28,13 +33,11 @@ const BADGE_ICONS: Record<string, LucideIcon> = {
   "beyond-pinks": ShoppingBag,
 };
 
+import { useMobile } from "@/hooks/use-mobile";
+
 export default function ProjectsSection() {
   const containerRef = useRef<HTMLElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    setIsMobile(window.matchMedia("(max-width: 767px)").matches);
-  }, []);
+  const isMobile = useMobile();
 
   useEffect(() => {
     if (isMobile) {
@@ -168,155 +171,90 @@ export default function ProjectsSection() {
         id="projects"
         ref={containerRef}
         aria-labelledby="projects-heading"
-        className="relative w-full bg-[#050505] py-20 px-4"
+        className="relative w-full min-h-screen bg-[#050505] py-24 px-8 overflow-hidden"
       >
-        <h2
-          id="projects-heading"
-          className="text-[10px] tracking-[0.3em] uppercase text-white/40 font-semibold mb-8 text-center"
-          style={{ fontFamily: "var(--font-dm-mono)" }}
-        >
-          Selected Projects
-        </h2>
+        <div className="max-w-md mx-auto space-y-16">
+          <div className="text-center space-y-4">
+            <div className="inline-flex items-center justify-center p-[1px] rounded-full bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-pink-500/30 mb-4">
+              <Badge variant="outline" className="border-0 text-white/70 tracking-[0.2em] font-mono rounded-full px-5 py-2 uppercase bg-black/50 backdrop-blur-md">
+                Selected Works
+              </Badge>
+            </div>
+            <h2
+              id="projects-heading"
+              className="text-4xl font-light tracking-tight text-white"
+            >
+              Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 italic font-medium">Projects</span>
+            </h2>
+          </div>
 
-        <div className="flex flex-col gap-8">
-          {portfolioProjects.map((project, index) => {
-            const BadgeIcon = BADGE_ICONS[project.slug] ?? Sparkles;
-
-            return (
-              <article
-                key={project.slug}
-                aria-labelledby={`project-title-${project.slug}`}
-                className="mobile-project-card relative w-full rounded-2xl overflow-hidden border border-white/[0.08] bg-[#0A0A0A]"
-              >
-                {/* Background image */}
-                <div className="relative w-full h-48">
-                  <Image
-                    src={project.image}
-                    alt={`${project.name} project preview`}
-                    fill
-                    sizes="100vw"
-                    className="object-cover object-center"
-                  />
-                  <div
-                    aria-hidden="true"
-                    className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-[#0A0A0A]"
-                  />
-                  {/* Badge overlay */}
-                  <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.05] border border-white/10 backdrop-blur-md">
-                    <BadgeIcon className="w-3 h-3 text-blue-400" />
-                    <span className="text-[9px] text-white/80 font-semibold tracking-[0.15em] uppercase">
-                      {project.badge}
-                    </span>
-                  </div>
-                  {/* Index indicator */}
-                  <span className="absolute top-4 left-4 text-white/60 font-medium text-[10px] tracking-[0.3em] uppercase">
-                    {String(index + 1).padStart(2, "0")}{" "}
-                    <span className="opacity-40">
-                      / {String(portfolioProjects.length).padStart(2, "0")}
-                    </span>
-                  </span>
-                </div>
-
-                {/* Content */}
-                <div className="p-5 space-y-5">
-                  <h3
-                    id={`project-title-${project.slug}`}
-                    className="text-2xl font-bold text-white tracking-tight leading-tight"
-                  >
-                    {project.name}
-                  </h3>
-
-                  <p className="text-white/70 text-sm leading-relaxed font-light">
-                    {project.shortDescription}
-                  </p>
-
-                  {/* Problem / Solution / Impact */}
-                  <div className="space-y-4">
-                    {[
-                      {
-                        icon: Lock,
-                        label: "Problem",
-                        text: project.problem,
-                      },
-                      {
-                        icon: Lightbulb,
-                        label: "Solution",
-                        text: project.solution,
-                      },
-                      {
-                        icon: TrendingUp,
-                        label: "Impact",
-                        text: project.impact,
-                      },
-                    ].map(({ icon: Icon, label, text }) => (
-                      <div key={label} className="flex gap-3">
-                        <div className="flex-shrink-0 w-8 h-8 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center">
-                          <Icon className="w-4 h-4 text-white/60" />
-                        </div>
-                        <div className="flex-1 pb-4 border-b border-white/[0.06]">
-                          <h4 className="text-[9px] text-white/60 tracking-[0.2em] uppercase mb-1.5 font-semibold">
-                            {label}
-                          </h4>
-                          <p className="text-xs leading-relaxed font-light text-white/80">
-                            {text}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
+          <div className="flex flex-col gap-12">
+            {portfolioProjects.map((project, index) => {
+              return (
+                <Card
+                  key={project.slug}
+                  className="mobile-project-card flex flex-col w-full bg-[#080808] border border-white/10 rounded-md overflow-hidden group"
+                >
+                  {/* Hero Image Section */}
+                  <div className="relative w-full aspect-video shrink-0 border-b border-white/10 overflow-hidden bg-black/50">
+                    <Image
+                      src={project.image}
+                      alt={`${project.name} preview`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 800px"
+                      className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                    />
                   </div>
 
-                  {/* Tech Stack */}
-                  <div>
-                    <div className="flex items-center gap-2 mb-3">
-                      <Layers className="w-4 h-4 text-white/50" />
-                      <h4 className="text-[9px] text-white/60 tracking-[0.2em] uppercase font-semibold">
-                        Tech Stack
-                      </h4>
+                  {/* Card Body */}
+                  <div className="flex flex-col p-5 sm:p-6 flex-1">
+                    {/* Badge */}
+                    <div className="flex items-center gap-4 mb-3">
+                      <span className="px-2.5 py-1 bg-white/[0.04] text-white/70 text-[10px] font-medium tracking-wider rounded">
+                        {project.badge}
+                      </span>
                     </div>
-                    <div className="flex flex-wrap gap-2">
-                      {project.stack.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-3 py-1.5 bg-white/[0.04] border border-white/[0.08] rounded-full text-[10px] tracking-[0.1em] text-white/80 font-medium"
+
+                    {/* Title */}
+                    <h3 className="text-[22px] font-bold text-white leading-tight mb-3">
+                      {project.name}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-white/60 text-sm leading-relaxed mb-6">
+                      {project.shortDescription}
+                    </p>
+
+                    {/* Footer / Actions */}
+                    <div className="mt-auto pt-2 flex items-center justify-center gap-3">
+                      {project.liveUrl && (
+                        <Button
+                          nativeButton={false}
+                          render={<a href={project.liveUrl} target="_blank" rel="noopener noreferrer" />}
+                          variant="secondary"
+                          size="sm"
+                          className="font-bold tracking-wider uppercase text-[10px]"
                         >
-                          {tech}
-                        </span>
-                      ))}
+                          See Project
+                        </Button>
+                      )}
+                      {project.githubUrl && (
+                        <Button
+                          nativeButton={false}
+                          render={<a href={project.githubUrl} target="_blank" rel="noopener noreferrer" />}
+                          variant="outline"
+                          size="sm"
+                          className="font-bold tracking-wider uppercase text-[10px]"
+                        >
+                          Source Code
+                        </Button>
+                      )}
                     </div>
                   </div>
-
-                  {/* Action buttons */}
-                  <div className="flex gap-3 pt-2">
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`View ${project.name} live project`}
-                        className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-white/95 text-black text-[11px] font-bold uppercase tracking-[0.1em] rounded-xl"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                        Live
-                        <ArrowRight className="w-3 h-3" />
-                      </a>
-                    )}
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`View ${project.name} source code`}
-                        className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-white/[0.05] border border-white/10 text-white text-[11px] font-bold uppercase tracking-[0.1em] rounded-xl"
-                      >
-                        <Code className="w-4 h-4" />
-                        Code
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </article>
-            );
-          })}
+                </Card>
+              );
+            })}
+          </div>
         </div>
       </section>
     );
@@ -389,9 +327,8 @@ export default function ProjectsSection() {
                       <div
                         key={dotIndex}
                         aria-hidden="true"
-                        className={`w-2.5 h-2.5 rounded-full transition-all duration-700 shadow-xl border border-white/20 ${
-                          dotIndex === index ? "bg-white" : "bg-transparent"
-                        }`}
+                        className={`w-2.5 h-2.5 rounded-full transition-all duration-700 shadow-xl border border-white/20 ${dotIndex === index ? "bg-white" : "bg-transparent"
+                          }`}
                       />
                     ))}
                   </div>

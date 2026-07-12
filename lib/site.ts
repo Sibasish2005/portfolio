@@ -40,6 +40,10 @@ export const siteConfig = {
   ],
   keywords: [
     "Sibasish Chakraborti",
+    "best web designer in Agartala",
+    "best web developer in Tripura",
+    "software developer in Agartala",
+    "top web developer in Tripura",
     "full stack developer",
     "Next.js developer",
     "React developer",
@@ -67,7 +71,7 @@ export const portfolioProjects: PortfolioProject[] = [
     impact:
       "Designed scalable multi-role architecture for real-world governance digitization.",
     stack: ["Next.js", "FastAPI", "PostgreSQL"],
-    liveUrl: "https://digi-panch.vercel.app/",
+    liveUrl: "https://www.digipanch.live",
     image: "/project-section/digi-panch.png",
   },
   {

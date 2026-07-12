@@ -25,7 +25,7 @@ export default function Navbar() {
     <>
       <nav
         aria-label="Primary"
-        className="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-6 md:px-8 lg:px-16 transition-all duration-500 ease-out bg-transparent border-b border-transparent"
+        className="fixed top-0 inset-x-0 z-[110] h-20 flex items-center justify-between px-8 md:px-8 lg:px-16 transition-all duration-500 ease-out bg-transparent border-b border-transparent"
       >
         <a
           href="#home"
@@ -61,34 +61,30 @@ export default function Navbar() {
           onClick={() => setIsMenuOpen((prev) => !prev)}
           className="md:hidden relative w-7 h-5 flex flex-col justify-between items-stretch z-[110]"
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={isMenuOpen}
+          aria-expanded={isMenuOpen ? true : false}
           aria-controls="mobile-menu"
         >
           <span
-            className={`block h-[1.5px] bg-white rounded-full transition-all duration-300 origin-center ${
-              isMenuOpen ? "rotate-45 translate-y-[9px]" : ""
-            }`}
+            className={`block h-[1.5px] bg-white rounded-full transition-all duration-300 origin-center ${isMenuOpen ? "rotate-45 translate-y-[9px]" : ""
+              }`}
           />
           <span
-            className={`block h-[1.5px] bg-white rounded-full transition-all duration-300 ${
-              isMenuOpen ? "opacity-0 scale-x-0" : ""
-            }`}
+            className={`block h-[1.5px] bg-white rounded-full transition-all duration-300 ${isMenuOpen ? "opacity-0 scale-x-0" : ""
+              }`}
           />
           <span
-            className={`block h-[1.5px] bg-white rounded-full transition-all duration-300 origin-center ${
-              isMenuOpen ? "-rotate-45 -translate-y-[9px]" : ""
-            }`}
+            className={`block h-[1.5px] bg-white rounded-full transition-all duration-300 origin-center ${isMenuOpen ? "-rotate-45 -translate-y-[9px]" : ""
+              }`}
           />
         </button>
       </nav>
 
       <div
         id="mobile-menu"
-        className={`fixed inset-0 bg-black z-[100] md:hidden flex flex-col items-center justify-center transition-all duration-500 ${
-          isMenuOpen
+        className={`fixed inset-0 bg-black z-[100] md:hidden flex flex-col items-center justify-center transition-all duration-500 ${isMenuOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
-        }`}
+          }`}
       >
         <nav aria-label="Mobile" className="flex flex-col items-center gap-8">
           {NAV_LINKS.map((link, i) => (

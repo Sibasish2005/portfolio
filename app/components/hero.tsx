@@ -55,6 +55,8 @@ function frameSrc(index: number) {
   return `/hero-section/ezgif-frame-${String(START_FRAME + index).padStart(3, "0")}.png`;
 }
 
+import { useMobile } from "@/hooks/use-mobile";
+
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -65,7 +67,7 @@ export default function HeroSection() {
 
   const [progress, setProgress] = useState(0);
   const [loaded, setLoaded] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useMobile();
 
   const nameRef = useRef<HTMLDivElement>(null);
   const roleRef = useRef<HTMLDivElement>(null);
@@ -73,12 +75,10 @@ export default function HeroSection() {
   const skillsMobileRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
 
-  /* Detect mobile once on mount */
+  /* Set loaded true if mobile immediately */
   useEffect(() => {
-    const mobile = window.matchMedia("(max-width: 767px)").matches;
-    setIsMobile(mobile);
-    if (mobile) setLoaded(true);
-  }, []);
+    if (isMobile) setLoaded(true);
+  }, [isMobile]);
 
   /* Preload frames — desktop only */
   useEffect(() => {
@@ -438,26 +438,14 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div
-            ref={ctaRef}
-            className="hidden md:block absolute left-10 lg:left-16 bottom-10 pointer-events-auto"
-            style={{ fontFamily: "var(--font-dm-mono)" }}
-          >
-            <a
-              href="#projects"
-              aria-label="Jump to selected projects"
-              className="inline-block text-center border border-white/20 px-8 py-3 text-[10px] tracking-[0.3em] uppercase text-white hover:bg-white hover:text-black transition-all duration-300"
-            >
-              View My Work {"\u2193"}
-            </a>
-          </div>
+
 
           {/* ── Mobile: flow-based layout to prevent overlap ── */}
-          <div className="md:hidden absolute inset-x-0 bottom-0 flex flex-col items-center px-6 pb-8 pt-4 gap-5 pointer-events-auto">
+          <div className="md:hidden absolute inset-x-0 bottom-0 flex flex-col items-center px-8 pb-10 pt-4 gap-5 pointer-events-auto">
             <div className="hero-mobile-stagger">
               <h1
                 id="hero-title-mobile"
-                className="text-3xl font-bold text-white leading-tight text-center"
+                className="text-4xl xs:text-5xl font-light text-white leading-[1.1] tracking-tight text-center"
                 style={{ fontFamily: "var(--font-orbitron)" }}
               >
                 Sibasish
@@ -492,18 +480,7 @@ export default function HeroSection() {
               </div>
             </div>
 
-            <div
-              className="hero-mobile-stagger w-full"
-              style={{ fontFamily: "var(--font-dm-mono)" }}
-            >
-              <a
-                href="#projects"
-                aria-label="Jump to selected projects"
-                className="block w-4/5 mx-auto text-center border border-white/20 px-8 py-3 text-[10px] tracking-[0.3em] uppercase text-white hover:bg-white hover:text-black transition-all duration-300"
-              >
-                View My Work {"\u2193"}
-              </a>
-            </div>
+
           </div>
         </div>
       </div>

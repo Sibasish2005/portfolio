@@ -145,7 +145,7 @@ export default function ContactSection() {
       id="contact"
       ref={containerRef}
       aria-labelledby="contact-heading"
-      className="relative w-full min-h-[100dvh] bg-[#050505] overflow-hidden flex flex-col items-center justify-center pt-28 pb-24 px-6 md:px-12 lg:px-20 z-10"
+      className="relative w-full min-h-[100dvh] bg-[#050505] overflow-hidden flex flex-col items-center justify-center pt-28 pb-24 px-8 md:px-12 lg:px-20 z-10"
     >
       <div
         aria-hidden="true"

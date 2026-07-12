@@ -6,37 +6,40 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { Card } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const commands = [
-  { cmd: "boot.profile()", output: "loading identity...\ndone." },
-  { cmd: "fetch.identity()", output: "Sibasish Chakraborti" },
-  { cmd: "fetch.role()", output: "Full Stack Developer" },
+  { cmd: "load profile", output: "loading identity...\ndone." },
+  { cmd: "show name", output: "Sibasish Chakraborti" },
+  { cmd: "show role", output: "Full Stack Developer" },
   {
-    cmd: "fetch.specialization()",
+    cmd: "show specializations",
     output:
       "Frontend Engineering\nBackend Systems\nCloud Infrastructure\nAI Integrations",
   },
-  { cmd: "fetch.current_build()", output: "Digital Panchayat Platform" },
+  { cmd: "show current project", output: "Digital Panchayat Platform" },
   {
-    cmd: "fetch.tech_stack()",
+    cmd: "show tech stack",
     output:
       "Next.js\nReact\nTypeScript\nNode.js\nFastAPI\nPython\nAWS\nDocker\nPostgreSQL\nMongoDB\nTailwind CSS\nshadcn/ui",
   },
   {
-    cmd: "fetch.mission()",
+    cmd: "show mission",
     output:
-      "Building scalable digital products\nthat solve meaningful real-world problems.",
+      "I'm on a mission to be the best web designer and web developer in Agartala, Tripura.\nBuilding scalable digital products that solve meaningful real-world problems as a top software developer.",
   },
-  { cmd: "status.ready()", output: "true" },
+  { cmd: "show location", output: "Agartala, Tripura, India" },
+  { cmd: "check status", output: "true" },
 ];
+
+import { useMobile } from "@/hooks/use-mobile";
 
 export default function AboutSection() {
   const containerRef = useRef<HTMLElement>(null);
   const leftImageRef = useRef<HTMLImageElement>(null);
   const rightPanelRef = useRef<HTMLDivElement>(null);
+  const mobilePanelRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const [booted, setBooted] = useState(false);
@@ -44,6 +47,7 @@ export default function AboutSection() {
   const [activeCharIndex, setActiveCharIndex] = useState(0);
   const [showOutputFor, setShowOutputFor] = useState(-1);
   const [loginTime, setLoginTime] = useState("");
+  const isMobile = useMobile();
 
   useEffect(() => {
     const formatTerminalDate = (date: Date) => {
@@ -74,21 +78,21 @@ export default function AboutSection() {
   }, []);
 
   useEffect(() => {
-    const mobile = window.matchMedia("(max-width: 767px)").matches;
-
     const context = gsap.context(() => {
-      if (mobile) {
+      if (isMobile) {
         /* Mobile: simple fade-in, no pin, no scroll gap */
         gsap.from(leftImageRef.current, {
           opacity: 0,
-          duration: 1,
-          ease: "power2.out",
+          scale: 1.05,
+          duration: 1.2,
+          ease: "power3.out",
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top 80%",
           },
         });
-        gsap.from(rightPanelRef.current, {
+
+        gsap.from(mobilePanelRef.current, {
           opacity: 0,
           y: 30,
           duration: 1,
@@ -100,7 +104,7 @@ export default function AboutSection() {
           onComplete: () => setBooted(true),
         });
       } else {
-        /* Desktop: original cinematic pin animation */
+        /* Desktop: cinematic pin animation */
         const timeline = gsap.timeline({
           scrollTrigger: {
             trigger: containerRef.current,
@@ -156,7 +160,7 @@ export default function AboutSection() {
     }, containerRef);
 
     return () => context.revert();
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
     if (!booted) return;
@@ -167,37 +171,23 @@ export default function AboutSection() {
       return () => clearTimeout(timer);
     }
 
-    const currentCmd = commands[activeCmdIndex].cmd;
+    const currentCmd = commands[activeCmdIndex];
+    if (!currentCmd) return;
 
-    if (activeCharIndex < currentCmd.length) {
-      let delay = Math.random() * 20 + 10;
-
-      if (Math.random() < 0.02) {
-        delay += Math.random() * 50 + 50;
-      }
-
-      const timer = setTimeout(() => {
+    if (activeCharIndex < currentCmd.cmd.length) {
+      const charTimer = setTimeout(() => {
         setActiveCharIndex((prev) => prev + 1);
-      }, delay);
-
-      return () => clearTimeout(timer);
-    }
-
-    if (activeCharIndex === currentCmd.length) {
-      if (showOutputFor < activeCmdIndex) {
-        const timer = setTimeout(() => {
-          setShowOutputFor(activeCmdIndex);
-        }, Math.random() * 100 + 50);
-
-        return () => clearTimeout(timer);
-      }
-
-      const timer = setTimeout(() => {
-        setActiveCmdIndex((prev) => prev + 1);
-        setActiveCharIndex(0);
-      }, Math.random() * 150 + 100);
-
-      return () => clearTimeout(timer);
+      }, 50);
+      return () => clearTimeout(charTimer);
+    } else {
+      const outputTimer = setTimeout(() => {
+        setShowOutputFor(activeCmdIndex);
+        setTimeout(() => {
+          setActiveCmdIndex((prev) => prev + 1);
+          setActiveCharIndex(0);
+        }, 400);
+      }, 200);
+      return () => clearTimeout(outputTimer);
     }
   }, [booted, activeCmdIndex, activeCharIndex, showOutputFor]);
 
@@ -212,7 +202,7 @@ export default function AboutSection() {
       id="about"
       ref={containerRef}
       aria-labelledby="about-heading"
-      className="relative w-full min-h-[100dvh] md:h-screen overflow-hidden bg-black text-white perspective-[2000px]"
+      className="relative w-full min-h-[100dvh] md:h-screen overflow-hidden bg-black text-white perspective-[2000px] flex flex-col px-8 md:px-0"
     >
       <h2 id="about-heading" className="sr-only">
         About Sibasish Chakraborti
@@ -220,16 +210,17 @@ export default function AboutSection() {
 
       {/* Crawlable content for Google — terminal text is client-rendered */}
       <div className="sr-only" aria-hidden="true">
-        <p>Name: Sibasish Chakraborti</p>
-        <p>Role: Full Stack Developer</p>
-        <p>Specialization: Frontend Engineering, Backend Systems, Cloud Infrastructure, AI Integrations</p>
-        <p>Current Build: Digital Panchayat Platform</p>
+        <h1>I am the best Web Designer and Web Developer in Agartala, Tripura</h1>
+        <p>Name: Sibasish Chakraborti - Top Software Developer in Tripura</p>
+        <p>Role: Full Stack Developer, Expert Web Designer, and Software Developer in Agartala.</p>
+        <p>Specialization: Frontend Engineering, Backend Systems, Cloud Infrastructure, AI Integrations. Providing the best web development services in Tripura.</p>
+        <p>Current Build: Digital Panchayat Platform - Empowering rural governance through software development.</p>
         <p>Tech Stack: Next.js, React, TypeScript, Node.js, FastAPI, Python, AWS, Docker, PostgreSQL, MongoDB, Tailwind CSS, shadcn/ui</p>
-        <p>Mission: Building scalable digital products that solve meaningful real-world problems.</p>
+        <p>Mission: I'm on a mission to be the best web designer and web developer in Agartala, Tripura. Building scalable digital products that solve meaningful real-world problems and help local businesses grow.</p>
       </div>
 
-      <div className="relative z-10 w-full h-full flex flex-col md:flex-row">
-        <div className="relative w-full md:w-1/2 h-[45%] md:h-full flex items-center justify-center overflow-hidden">
+      <div className="relative z-10 w-full flex-1 flex flex-col md:flex-row">
+        <div className="relative w-full md:w-1/2 h-[45dvh] md:h-full flex items-center justify-center overflow-hidden shrink-0">
           <div
             aria-hidden="true"
             className="absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"
@@ -258,7 +249,92 @@ export default function AboutSection() {
           />
         </div>
 
-        <div className="relative w-full md:w-1/2 h-[55%] md:h-full flex items-center justify-center p-4 md:p-8 lg:p-12 z-20">
+        {/* ── Mobile View: Premium Redesign ── */}
+        <div className="md:hidden relative w-full flex-1 flex flex-col z-20 pb-4">
+          {/* Top overlay to fade out the image bottom edge slightly */}
+          <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black/80 to-transparent -translate-y-full pointer-events-none" />
+
+          <div ref={mobilePanelRef} className="flex-1 w-full bg-[#080808] rounded-[32px] px-6 pt-8 pb-12 shadow-[0_0_40px_rgba(0,0,0,0.5)] border border-white/[0.08] overflow-y-auto">
+            <div className="w-full max-w-sm mx-auto flex flex-col">
+
+              {/* Handle bar for aesthetic */}
+              <div className="w-12 h-1.5 bg-white/10 rounded-full mx-auto mb-8" />
+
+              <div className="flex items-center gap-3 mb-6">
+                <div className="px-3 py-1 rounded-full border border-white/20 bg-white/5 backdrop-blur-md flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                  <span className="text-[10px] font-mono tracking-widest text-white/80 uppercase">Online</span>
+                </div>
+                <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-white/40">
+                  Profile.sys
+                </span>
+              </div>
+
+              <h3 className="text-4xl font-light tracking-tight mb-2 text-white">
+                Sibasish <span className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-white/50">Chakraborti</span>
+              </h3>
+
+              <p className="text-xs text-white/50 font-mono uppercase tracking-[0.2em] mb-8">
+                Full Stack Developer
+              </p>
+
+              <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.05] mb-8">
+                <p className="text-[13px] font-light leading-relaxed text-white/80 mb-3">
+                  I'm on a mission to be the <strong className="text-white font-medium">best web designer and web developer in Agartala, Tripura</strong>.
+                </p>
+                <p className="text-xs font-light leading-relaxed text-white/60">
+                  As a passionate software developer, I specialize in crafting premium web applications, modern UIs, and robust backend systems. Building scalable digital products that solve meaningful real-world problems and help businesses thrive in the digital age.
+                </p>
+              </div>
+
+              <div className="space-y-8">
+                {/* Specializations */}
+                <div className="space-y-4">
+                  <h4 className="flex items-center gap-2 font-mono text-[10px] tracking-[0.2em] uppercase text-white/40">
+                    <span className="w-1 h-1 bg-white/40 rounded-full" /> Specializations
+                  </h4>
+                  <div className="grid grid-cols-2 gap-3">
+                    {["Frontend Eng", "Backend Sys", "Cloud Infra", "AI Integration"].map((spec) => (
+                      <div key={spec} className="p-3 rounded-xl bg-[#111] border border-white/[0.04] text-center shadow-inner">
+                        <p className="text-[11px] text-white/80 font-medium tracking-wide">{spec}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Current Build */}
+                <div className="space-y-4">
+                  <h4 className="flex items-center gap-2 font-mono text-[10px] tracking-[0.2em] uppercase text-white/40">
+                    <span className="w-1 h-1 bg-white/40 rounded-full" /> Current Build
+                  </h4>
+                  <div className="w-full p-4 rounded-xl bg-gradient-to-r from-white/[0.05] to-white/[0.01] border border-white/[0.05] relative overflow-hidden group">
+                    <p className="relative z-10 text-sm text-white/90 font-medium tracking-wide">
+                      Digital Panchayat Platform
+                    </p>
+                  </div>
+                </div>
+
+                {/* Tech Stack */}
+                <div className="space-y-4">
+                  <h4 className="flex items-center gap-2 font-mono text-[10px] tracking-[0.2em] uppercase text-white/40">
+                    <span className="w-1 h-1 bg-white/40 rounded-full" /> Core Tech
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {["Next.js", "React", "TypeScript", "Node.js", "Python", "AWS", "Docker", "PostgreSQL", "MongoDB"].map((tech) => (
+                      <span key={tech} className="px-3.5 py-1.5 bg-black border border-white/[0.08] rounded-full text-[11px] text-white/70 shadow-sm">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        {/* ── Desktop View: Terminal Layout ── */}
+        <div className="hidden md:flex relative w-full md:w-1/2 h-[55%] md:h-full items-center justify-center p-4 md:p-8 lg:p-12 z-20">
           <Card
             ref={rightPanelRef}
             className="relative w-full max-w-[850px] h-full max-h-[80vh] flex flex-col rounded-xl md:rounded-xl overflow-hidden bg-[#0d0d0d]/95 border border-white/10 backdrop-blur-3xl"
@@ -273,11 +349,11 @@ export default function AboutSection() {
               </div>
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <p className="text-[13px] text-white/50 font-medium font-sans flex items-center gap-1.5">
-                  <svg className="w-4 h-4 text-[#52a8ff]" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z" /></svg>
+                  <svg className="w-4 h-4 text-[#52a8ff]" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2h-8l-2-2z" /></svg>
                   sibasish@MacBook-Pro ~ %
                 </p>
               </div>
-             
+
             </div>
 
             <div
@@ -300,13 +376,13 @@ export default function AboutSection() {
 
                   const renderOutput = () => {
                     switch (command.cmd) {
-                      case "boot.profile()":
+                      case "load profile":
                         return (
                           <div className="pt-1 pb-3 text-[rgba(255,255,255,0.65)] whitespace-pre-wrap">
                             {command.output}
                           </div>
                         );
-                      case "fetch.identity()":
+                      case "show name":
                         return (
                           <div className="pt-2 pb-4 w-full flex justify-center">
                             <div className="text-[#ffffff] text-sm md:text-base tracking-[0.4em] md:tracking-[0.6em] font-medium uppercase">
@@ -314,7 +390,7 @@ export default function AboutSection() {
                             </div>
                           </div>
                         );
-                      case "fetch.role()":
+                      case "show role":
                         return (
                           <div className="pt-1 pb-3 w-full">
                             <div className="text-white/90 tracking-wider uppercase">
@@ -322,7 +398,7 @@ export default function AboutSection() {
                             </div>
                           </div>
                         );
-                      case "fetch.specialization()":
+                      case "show specializations":
                         return (
                           <div className="pt-2 pb-3 grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-4 w-full max-w-2xl">
                             {command.output.split("\n").map((item) => (
@@ -336,7 +412,7 @@ export default function AboutSection() {
                             ))}
                           </div>
                         );
-                      case "fetch.current_build()":
+                      case "show current project":
                         return (
                           <div className="pt-1 pb-3 w-full">
                             <span className="text-white/90 tracking-wider uppercase">
@@ -344,7 +420,7 @@ export default function AboutSection() {
                             </span>
                           </div>
                         );
-                      case "fetch.tech_stack()":
+                      case "show tech stack":
                         return (
                           <div className="pt-2 pb-3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-y-3 gap-x-4 w-full">
                             {command.output.split("\n").map((tech) => (
@@ -357,7 +433,7 @@ export default function AboutSection() {
                             ))}
                           </div>
                         );
-                      case "fetch.mission()":
+                      case "show mission":
                         return (
                           <div className="pt-2 pb-3 w-full max-w-3xl">
                             <div className="text-white/80 leading-relaxed italic">
@@ -365,7 +441,16 @@ export default function AboutSection() {
                             </div>
                           </div>
                         );
-                      case "status.ready()":
+                      case "show location":
+                        return (
+                          <div className="pt-1 pb-3 w-full">
+                            <div className="text-white/90 tracking-wider uppercase flex items-center gap-2">
+                              <svg className="w-4 h-4 text-white/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                              {command.output}
+                            </div>
+                          </div>
+                        );
+                      case "check status":
                         return (
                           <div className="pt-2 pb-3 flex items-center gap-2">
                             <svg className="w-4 h-4 text-[#22c55e]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
