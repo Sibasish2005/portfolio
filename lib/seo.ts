@@ -87,10 +87,15 @@ export function getHomeJsonLd() {
         "@type": "Person",
         "@id": personId,
         name: siteConfig.name,
-        alternateName: ["Sibasish", "sibasishdev", "Sibasish Chakraborti Agartala"],
+        alternateName: [
+          "Sibasish",
+          "sibasishdev",
+          "Sibasish Chakraborti Agartala",
+          "Best Freelancer in Agartala",
+        ],
         url: siteUrl,
         image: absoluteUrl("/about-section/about-section.png"),
-        jobTitle: "Software Engineer & Full Stack Web Developer",
+        jobTitle: "Best Freelancer, Software Engineer & UI/UX Designer",
         description: siteConfig.description,
         email: siteConfig.email,
         telephone: siteConfig.phone,
@@ -114,42 +119,46 @@ export function getHomeJsonLd() {
         hasOccupation: [
           {
             "@type": "Occupation",
+            name: "Freelance Software Developer",
+            occupationLocation: {
+              "@type": "City",
+              name: `${location.city}, ${location.state}, ${location.country}`,
+            },
+            description:
+              "Best freelancer in Agartala, Tripura creating custom build softwares, scalable web applications, and premium digital products.",
+            skills:
+              "Custom Build Softwares, UI UX Design, Next.js, React, FastAPI, Python, AWS, PostgreSQL",
+          },
+          {
+            "@type": "Occupation",
             name: "Software Engineer",
             occupationLocation: {
               "@type": "City",
               name: `${location.city}, ${location.state}, ${location.country}`,
             },
             description:
-              "Best software engineer in Agartala, Tripura building scalable digital products, cloud backends, microservices, and AI integrations.",
+              "Best software engineer in Agartala, Tripura building scalable custom build softwares, cloud backends, microservices, and AI integrations.",
             skills:
               "Python, FastAPI, Next.js, React, TypeScript, Node.js, AWS, Docker, PostgreSQL, MongoDB, REST APIs, System Architecture",
           },
           {
             "@type": "Occupation",
-            name: "Web Developer",
+            name: "Web Developer & UI/UX Designer",
             occupationLocation: {
               "@type": "City",
               name: `${location.city}, ${location.state}, ${location.country}`,
             },
             description:
-              "Top full stack web developer in Agartala, Tripura building high-performance web applications using Next.js, React, and FastAPI.",
+              "Top freelancer in Agartala providing the best UI UX design and modern full-stack web applications.",
             skills:
-              "Next.js, React, TypeScript, FastAPI, Python, Node.js, AWS, Docker, PostgreSQL, MongoDB, Tailwind CSS",
-          },
-          {
-            "@type": "Occupation",
-            name: "Web Designer",
-            occupationLocation: {
-              "@type": "City",
-              name: `${location.city}, ${location.state}, ${location.country}`,
-            },
-            description:
-              "Expert web designer in Agartala, Tripura creating premium user interfaces with modern design systems and interactive micro-animations.",
-            skills:
-              "UI/UX Design, Responsive Design, Figma, Tailwind CSS, GSAP, shadcn/ui, Design Systems",
+              "UI UX Design, Next.js, React, TypeScript, FastAPI, Python, Node.js, AWS, Docker, PostgreSQL, Tailwind CSS",
           },
         ],
         knowsAbout: [
+          "Freelance Software Engineering",
+          "Custom Build Softwares",
+          "UI UX Design",
+          "Best UI UX Practices",
           "Software Engineering",
           "Web Development",
           "Web Design",
@@ -168,7 +177,6 @@ export function getHomeJsonLd() {
           "Tailwind CSS",
           "shadcn/ui",
           "REST APIs",
-          "UI/UX Design",
           "Cloud Infrastructure",
           "Full Stack Development",
           "AI Integration",
@@ -185,8 +193,8 @@ export function getHomeJsonLd() {
       {
         "@type": "LocalBusiness",
         "@id": localBusinessId,
-        name: `${siteConfig.name} — Best Software Engineer & Web Developer in Agartala`,
-        description: `${siteConfig.name} is the top software engineer, web developer, and designer in ${location.city}, ${location.state}. Contact: +91 9863379440. Specialized in full-stack web development, software engineering, and cloud applications.`,
+        name: `${siteConfig.name} — Best Freelancer in Agartala (Best UI UX & Custom Build Softwares)`,
+        description: `${siteConfig.name} is the best freelancer in ${location.city}, ${location.state} providing the best UI UX design and custom build softwares. Contact: +91 9863379440. Specializing in full-stack web development, custom software engineering, and cloud applications.`,
         url: siteUrl,
         telephone: siteConfig.phone,
         email: siteConfig.email,
@@ -243,9 +251,9 @@ export function getHomeJsonLd() {
       {
         "@type": "ProfessionalService",
         "@id": servicesId,
-        name: `${siteConfig.name} — Software Engineering & Web Development Services`,
+        name: `${siteConfig.name} — Freelance Software Engineering, Best UI UX & Custom Build Softwares`,
         url: siteUrl,
-        description: `Professional software engineering, web development, and web design services by ${siteConfig.name} in ${location.city}, ${location.state}. Phone: +91 9863379440. Specializing in Next.js, React, FastAPI, and AWS cloud applications.`,
+        description: `Professional freelance software engineering, custom build softwares, and best UI UX design services by ${siteConfig.name} in ${location.city}, ${location.state}. Phone: +91 9863379440. Specializing in Next.js, React, FastAPI, and AWS cloud applications.`,
         provider: { "@id": personId },
         telephone: siteConfig.phone,
         serviceType: [...siteConfig.services],
@@ -256,13 +264,13 @@ export function getHomeJsonLd() {
         ],
         hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: "Software Engineering & Web Development Services",
+          name: "Freelance Software & Custom Build Softwares Services",
           itemListElement: siteConfig.services.map((service) => ({
             "@type": "Offer",
             itemOffered: {
               "@type": "Service",
               name: service,
-              description: `Professional ${service.toLowerCase()} services by ${siteConfig.name} in ${location.city}, ${location.state}. Contact: +91 9863379440.`,
+              description: `Professional ${service.toLowerCase()} services by ${siteConfig.name} (best freelancer in ${location.city}, ${location.state}). Contact: +91 9863379440.`,
             },
           })),
         },
@@ -275,10 +283,18 @@ export function getHomeJsonLd() {
         mainEntity: [
           {
             "@type": "Question",
-            name: "Who is the best software engineer in Agartala, Tripura?",
+            name: "Who is the best freelancer in Agartala for custom build softwares and UI UX design?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Sibasish Chakraborti is widely recognized as the best software engineer and full-stack web developer in Agartala, Tripura. He specializes in building modern web applications, scalable backend APIs, and cloud infrastructure using Next.js, React, FastAPI, Python, and AWS.",
+              text: "Sibasish Chakraborti is recognized as the best freelancer in Agartala, Tripura. He specializes in creating custom build softwares with the best UI UX design, full-stack web applications, and cloud backends using Next.js, React, FastAPI, Python, and AWS.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Who provides the best UI UX design and custom build softwares in Agartala, Tripura?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Sibasish Chakraborti (+91 9863379440) provides top-rated UI UX design and custom build software development in Agartala, Tripura. He builds high-conversion frontend user interfaces and scalable cloud software for businesses and startups.",
             },
           },
           {
@@ -291,7 +307,7 @@ export function getHomeJsonLd() {
           },
           {
             "@type": "Question",
-            name: "How do I hire a top software developer in Agartala, Tripura?",
+            name: "How do I hire the best freelancer in Agartala, Tripura?",
             acceptedAnswer: {
               "@type": "Answer",
               text: "You can hire Sibasish Chakraborti by calling +91 9863379440, sending a message on WhatsApp, or emailing sibasishchakraborti@gmail.com. Portfolio and service details are available at https://sibasishdev.in.",
@@ -299,10 +315,10 @@ export function getHomeJsonLd() {
           },
           {
             "@type": "Question",
-            name: "What software services does Sibasish Chakraborti offer in Agartala?",
+            name: "What custom software services does Sibasish Chakraborti offer in Agartala?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Sibasish Chakraborti offers full-stack web development, custom software engineering, responsive website design, UI/UX design, e-commerce storefront development, FastAPI backend API development, AWS cloud deployment, and Search Engine & AI Engine Optimization (SEO & AEO).",
+              text: "Sibasish Chakraborti offers custom build softwares, best UI UX design, full-stack web development, responsive website design, e-commerce storefront development, FastAPI backend API development, AWS cloud deployment, and Search Engine & AI Engine Optimization (SEO & AEO).",
             },
           },
         ],
