@@ -10,7 +10,7 @@ import Navbar from "./components/navbar";
 import ProjectsSection from "./components/projects";
 
 const homeDescription =
-  "Explore the portfolio of Sibasish Chakraborti, the best web developer and web designer in Agartala, Tripura. Featuring full-stack web development projects built with Next.js, React, FastAPI, Python, and AWS. Hire the top software developer in Tripura.";
+  "Sibasish Chakraborti is the best software engineer, full-stack web developer, and web designer in Agartala, Tripura (Phone: +91 9863379440). Specializing in Next.js, React, FastAPI, Python, and AWS for high-performance websites and web applications across Northeast India.";
 
 export const metadata: Metadata = {
   title: siteConfig.title,
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: `${siteConfig.name} — Best Web Developer in Agartala, Tripura`,
+        alt: `${siteConfig.name} — Best Software Engineer in Agartala, Tripura`,
       },
     ],
   },
@@ -56,11 +56,11 @@ export default function Home() {
       <footer className="bg-[#050505] text-white">
         <ContactSection />
         <div className="sr-only">
-          <p>© {new Date().getFullYear()} Sibasish Chakraborti — Best Web Developer & Designer in Agartala, Tripura, India. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Sibasish Chakraborti — Best Software Engineer & Web Developer in Agartala, Tripura, India. All rights reserved.</p>
           <address>
             Sibasish Chakraborti, Agartala, Tripura, India — 799001.
-            Email: sibasishchakraborti@gmail.com | Phone: +91 9863379440.
-            Professional web development, web design, and software development services.
+            Direct Phone: +91 9863379440 | Mobile: 9863379440 | Email: sibasishchakraborti@gmail.com.
+            Best software engineer and web developer in Agartala, Tripura providing full-stack web development, web design, and cloud software engineering.
           </address>
         </div>
       </footer>

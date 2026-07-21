@@ -42,6 +42,12 @@ export const metadata: Metadata = {
   category: "technology",
   alternates: {
     canonical: "https://sibasishdev.in",
+    types: {
+      "text/plain": [
+        { url: "/llms.txt", title: "LLM Context (Summary)" },
+        { url: "/llms-full.txt", title: "LLM Context (Full)" },
+      ],
+    },
   },
   manifest: "/manifest.webmanifest",
   icons: {
@@ -72,7 +78,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: `${siteConfig.name} portfolio preview`,
+        alt: `${siteConfig.name} — Best Software Engineer in Agartala, Tripura`,
       },
     ],
   },
@@ -87,6 +93,8 @@ export const metadata: Metadata = {
     "geo.placename": "Agartala, Tripura",
     "geo.position": `${siteConfig.location.latitude};${siteConfig.location.longitude}`,
     "ICBM": `${siteConfig.location.latitude}, ${siteConfig.location.longitude}`,
+    "telephone": siteConfig.phone,
+    "contact": siteConfig.phone,
     "revisit-after": "7 days",
     "rating": "general",
     "distribution": "global",
@@ -114,6 +122,10 @@ export default function RootLayout({
         geist.variable
       )}
     >
+      <head>
+        <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM Context" />
+        <link rel="alternate" type="text/plain" href="/llms-full.txt" title="Full LLM Context" />
+      </head>
       <body>
         <a
           href="#main-content"

@@ -158,11 +158,11 @@ export default function ContactSection() {
       </div>
       {/* Crawlable SEO content */}
       <div className="sr-only">
-        <h3>Contact Sibasish Chakraborti — Hire the Best Web Developer in Agartala, Tripura</h3>
-        <p>Get in touch with Sibasish Chakraborti, the best web developer and web designer in Agartala, Tripura. Available for freelance web development, full-time positions, and consulting projects.</p>
-        <p>Services: Website development, web application development, UI/UX design, e-commerce solutions, SEO optimization, cloud deployment, and digital product engineering. Serving businesses in Agartala, Tripura, Northeast India, and across India.</p>
+        <h3>Contact Sibasish Chakraborti — Hire the Best Software Engineer & Web Developer in Agartala, Tripura</h3>
+        <p>Get in touch with Sibasish Chakraborti, the best software engineer, full-stack web developer, and web designer in Agartala, Tripura. Available for software engineering roles, web development projects, full-time positions, and technical consulting.</p>
+        <p>Services: Software engineering, web application development, UI/UX design, e-commerce solutions, FastAPI backend development, cloud deployment, and SEO/AEO optimization. Serving clients in Agartala, Tripura, Northeast India, and globally.</p>
         <p>Contact: Email — sibasishchakraborti@gmail.com. Phone — +91 9863379440. WhatsApp — +91 9863379440. LinkedIn — Sibasish Chakraborti.</p>
-        <p>Location: Agartala, Tripura, India — 799001. The top freelance software developer in Tripura for hire.</p>
+        <p>Location: Agartala, Tripura, India — 799001. The top software engineer and freelance web developer in Tripura for hire.</p>
       </div>
 
       <div className="relative z-10 w-full max-w-[1500px] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24">

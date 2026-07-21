@@ -153,17 +153,17 @@ export default function HeroSection() {
       <div className="sticky top-0 w-full h-full overflow-hidden bg-black">
         <div className="sr-only">
           <h1 id="hero-summary">
-            Sibasish Chakraborti — Best Web Developer & Designer in Agartala, Tripura
+            Sibasish Chakraborti — Best Software Engineer & Web Developer in Agartala, Tripura
           </h1>
           <p>
-            Welcome to the portfolio of Sibasish Chakraborti, the best web developer and web designer in Agartala, Tripura. 
-            As a top-rated full stack developer in Northeast India, Sibasish specializes in building premium websites, 
-            high-performance web applications, and scalable digital products using Next.js, React, TypeScript, FastAPI, Python, and AWS.
+            Welcome to the portfolio of Sibasish Chakraborti, the best software engineer, web developer, and web designer in Agartala, Tripura (Phone: +91 9863379440). 
+            As a top-rated software engineer and full stack developer in Northeast India, Sibasish specializes in building premium web applications, 
+            scalable microservices, high-performance APIs, and cloud products using Next.js, React, TypeScript, FastAPI, Python, and AWS.
           </p>
           <p>
-            Looking for the best software developer in Tripura? Sibasish Chakraborti offers professional web development, 
-            web design, UI/UX design, e-commerce development, and cloud deployment services for businesses in Agartala, 
-            Tripura, and across India. Hire the top freelance web developer in Tripura for your next project.
+            Looking for the best software engineer in Agartala, Tripura? Sibasish Chakraborti offers professional software development, 
+            web engineering, UI/UX design, e-commerce development, and cloud deployment services for businesses in Agartala, 
+            Tripura, and globally. Direct Contact: +91 9863379440 / 9863379440.
           </p>
         </div>
 
