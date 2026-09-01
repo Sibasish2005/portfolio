@@ -168,15 +168,17 @@ export default function HeroSection() {
           </p>
         </div>
 
-        <NextImage
-          src={isMobile ? "/mobile-hero-1.png" : "/hero-section/hero image.png"}
-          alt="Hero background"
-          fill
-          priority
-          className="object-cover object-[center_35%] md:object-top opacity-85"
-          sizes="100vw"
-          quality={80}
-        />
+        <div className="absolute inset-0">
+          <NextImage
+            src={isMobile ? "/mobile-hero-1.png" : "/hero-section/hero image.png"}
+            alt="Hero background"
+            fill
+            priority
+            className="object-cover object-[center_35%] md:object-top opacity-85"
+            sizes="100vw"
+            quality={80}
+          />
+        </div>
 
         <div
           aria-hidden="true"

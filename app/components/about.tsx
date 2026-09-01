@@ -95,17 +95,21 @@ export default function AboutSection() {
           },
         });
 
-        gsap.from(mobilePanelRef.current, {
-          opacity: 0,
-          y: 30,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 70%",
-          },
-          onComplete: () => setBooted(true),
-        });
+        gsap.fromTo(
+          mobilePanelRef.current,
+          { opacity: 0, y: 24 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top 75%",
+              once: true,
+            },
+          }
+        );
       } else {
         /* Desktop: cinematic pin animation */
         const timeline = gsap.timeline({
@@ -166,7 +170,7 @@ export default function AboutSection() {
   }, [isMobile]);
 
   useEffect(() => {
-    if (!booted) return;
+    if (!booted || isMobile) return;
     if (activeCmdIndex >= commands.length) return;
 
     if (activeCmdIndex === -1) {
@@ -192,7 +196,7 @@ export default function AboutSection() {
       }, 200);
       return () => clearTimeout(outputTimer);
     }
-  }, [booted, activeCmdIndex, activeCharIndex, showOutputFor]);
+  }, [booted, activeCmdIndex, activeCharIndex, showOutputFor, isMobile]);
 
   useEffect(() => {
     if (scrollRef.current) {

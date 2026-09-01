@@ -8,6 +8,18 @@ import "lenis/dist/lenis.css";
 
 export function LenisSmoothScroll() {
   useEffect(() => {
+    const isTouchDevice =
+      typeof window !== "undefined" &&
+      (window.innerWidth < 768 ||
+        "ontouchstart" in window ||
+        navigator.maxTouchPoints > 0);
+
+    // On mobile touch devices, use native 120Hz hardware momentum scrolling.
+    // Lenis touch virtualization causes severe touch lag and stutter on mobile.
+    if (isTouchDevice) {
+      return;
+    }
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -15,7 +27,7 @@ export function LenisSmoothScroll() {
       gestureOrientation: "vertical",
       smoothWheel: true,
       wheelMultiplier: 1.0,
-      touchMultiplier: 1.2,
+      touchMultiplier: 0,
     });
 
     // Keep GSAP ScrollTrigger perfectly in sync with Lenis

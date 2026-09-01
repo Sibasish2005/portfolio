@@ -45,16 +45,21 @@ export default function ProjectsSection() {
         gsap.utils
           .toArray<HTMLElement>(".mobile-project-card")
           .forEach((card) => {
-            gsap.from(card, {
-              opacity: 0,
-              y: 40,
-              duration: 0.8,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: card,
-                start: "top 85%",
-              },
-            });
+            gsap.fromTo(
+              card,
+              { opacity: 0, y: 24 },
+              {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: card,
+                  start: "top 90%",
+                  once: true,
+                },
+              }
+            );
           });
       }, containerRef);
       return () => context.revert();

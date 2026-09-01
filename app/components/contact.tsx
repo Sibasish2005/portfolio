@@ -16,25 +16,30 @@ import {
 } from "lucide-react";
 
 import { siteConfig } from "@/lib/site";
+import { useMobile } from "@/hooks/use-mobile";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ContactSection() {
   const containerRef = useRef<HTMLElement>(null);
   const floatingElementsRef = useRef<HTMLElement[]>([]);
+  const isMobile = useMobile();
 
   useEffect(() => {
     const context = gsap.context(() => {
-      gsap.to(".contact-bg", {
-        yPercent: 20,
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
+      // Parallax background scrub only on desktop
+      if (!isMobile) {
+        gsap.to(".contact-bg", {
+          yPercent: 20,
+          ease: "none",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      }
 
       gsap.fromTo(
         ".contact-reveal",
@@ -70,16 +75,18 @@ export default function ContactSection() {
         }
       );
 
-      floatingElementsRef.current.forEach((element) => {
-        gsap.to(element, {
-          y: "-=4",
-          duration: gsap.utils.random(3, 4),
-          delay: gsap.utils.random(0, 1),
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
+      if (!isMobile) {
+        floatingElementsRef.current.forEach((element) => {
+          gsap.to(element, {
+            y: "-=4",
+            duration: gsap.utils.random(3, 4),
+            delay: gsap.utils.random(0, 1),
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+          });
         });
-      });
+      }
     }, containerRef);
 
     // Guaranteed fallback: ensure elements are never stuck at opacity 0
@@ -113,7 +120,7 @@ export default function ContactSection() {
       observer.disconnect();
       context.revert();
     };
-  }, []);
+  }, [isMobile]);
 
   const handleMouseEnter = (target: HTMLElement) => {
     gsap.to(target, {
@@ -194,7 +201,7 @@ export default function ContactSection() {
       >
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/[0.03] via-[#050505] to-[#050505]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-white/[0.02] via-transparent to-transparent" />
-        <div className="absolute inset-0 opacity-[0.15] bg-[url('/noise.svg')] mix-blend-overlay" />
+        <div className="absolute inset-0 opacity-[0.08] hidden md:block bg-[url('/noise.svg')] mix-blend-overlay" />
       </div>
       {/* Crawlable SEO content */}
       <div className="sr-only">
@@ -289,7 +296,7 @@ export default function ContactSection() {
               target={href.startsWith("mailto:") ? undefined : "_blank"}
               rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
               aria-label={label}
-              className="contact-reveal flex items-center gap-4 p-4 bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-2xl active:scale-[0.98] active:bg-white/[0.05] transition-transform duration-150"
+              className="contact-reveal flex items-center gap-4 p-4 bg-[#0e0e0e] md:bg-white/[0.02] md:backdrop-blur-[20px] border border-white/[0.08] rounded-2xl active:scale-[0.98] active:bg-white/[0.05] transition-all duration-150"
             >
               <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center shrink-0">
                 <Icon className="w-5 h-5 text-white" />
