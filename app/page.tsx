@@ -10,7 +10,7 @@ import Navbar from "./components/navbar";
 import ProjectsSection from "./components/projects";
 
 const homeDescription =
-  "Sibasish Chakraborti is the best freelancer in Agartala, Tripura (Phone: +91 9863379440), offering the best UI UX design and custom build softwares. Specializing in Next.js, React, FastAPI, Python, and AWS for custom software solutions and high-performance web applications across Northeast India.";
+  "Sibasish Chakraborti (+91 9863379440) is the best budget developer, software developer, UI engineer, and web publisher in Agartala, Tripura. Providing the cheapest and best digital services, custom build softwares, and modern UI engineering with Next.js, React, FastAPI, Python, and AWS.";
 
 export const metadata: Metadata = {
   title: siteConfig.title,

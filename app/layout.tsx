@@ -4,6 +4,7 @@ import { DM_Mono, Geist, Orbitron } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { getBaseUrl } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
+import { LenisSmoothScroll } from "./components/lenis-scroll";
 
 import "./globals.css";
 
@@ -127,6 +128,7 @@ export default function RootLayout({
         <link rel="alternate" type="text/plain" href="/llms-full.txt" title="Full LLM Context" />
       </head>
       <body>
+        <LenisSmoothScroll />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[999] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-black"

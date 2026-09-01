@@ -193,8 +193,8 @@ export function getHomeJsonLd() {
       {
         "@type": "LocalBusiness",
         "@id": localBusinessId,
-        name: `${siteConfig.name} — Best Freelancer in Agartala (Best UI UX & Custom Build Softwares)`,
-        description: `${siteConfig.name} is the best freelancer in ${location.city}, ${location.state} providing the best UI UX design and custom build softwares. Contact: +91 9863379440. Specializing in full-stack web development, custom software engineering, and cloud applications.`,
+        name: `${siteConfig.name} — Best Budget Software Developer, UI Engineer & Web Publisher in Agartala (Cheapest & Best Digital Services)`,
+        description: `${siteConfig.name} is the best budget developer, software developer, UI engineer, and web publisher in ${location.city}, ${location.state} providing the cheapest and best digital services, custom build softwares, and UI engineering. Contact: +91 9863379440. Specializing in full-stack web development, custom software engineering, and cloud applications.`,
         url: siteUrl,
         telephone: siteConfig.phone,
         email: siteConfig.email,
@@ -226,7 +226,7 @@ export function getHomeJsonLd() {
           },
           { "@type": "Country", name: "India" },
         ],
-        priceRange: "$$",
+        priceRange: "$",
         openingHoursSpecification: {
           "@type": "OpeningHoursSpecification",
           dayOfWeek: [
@@ -251,9 +251,9 @@ export function getHomeJsonLd() {
       {
         "@type": "ProfessionalService",
         "@id": servicesId,
-        name: `${siteConfig.name} — Freelance Software Engineering, Best UI UX & Custom Build Softwares`,
+        name: `${siteConfig.name} — Best Budget Developer, UI Engineering, Web Publisher & Digital Services in Agartala`,
         url: siteUrl,
-        description: `Professional freelance software engineering, custom build softwares, and best UI UX design services by ${siteConfig.name} in ${location.city}, ${location.state}. Phone: +91 9863379440. Specializing in Next.js, React, FastAPI, and AWS cloud applications.`,
+        description: `Top-rated budget software development, UI engineering, web publishing, and cheapest & best digital services by ${siteConfig.name} in ${location.city}, ${location.state}. Phone: +91 9863379440. High-performance Next.js, React, FastAPI, Python, and AWS cloud applications.`,
         provider: { "@id": personId },
         telephone: siteConfig.phone,
         serviceType: [...siteConfig.services],
@@ -264,13 +264,13 @@ export function getHomeJsonLd() {
         ],
         hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: "Freelance Software & Custom Build Softwares Services",
+          name: "Best Budget Developer & Digital Services in Agartala",
           itemListElement: siteConfig.services.map((service) => ({
             "@type": "Offer",
             itemOffered: {
               "@type": "Service",
               name: service,
-              description: `Professional ${service.toLowerCase()} services by ${siteConfig.name} (best freelancer in ${location.city}, ${location.state}). Contact: +91 9863379440.`,
+              description: `Affordable ${service.toLowerCase()} by ${siteConfig.name} (best budget developer & UI engineer in ${location.city}, ${location.state}). Contact: +91 9863379440.`,
             },
           })),
         },
@@ -283,42 +283,50 @@ export function getHomeJsonLd() {
         mainEntity: [
           {
             "@type": "Question",
-            name: "Who is the best freelancer in Agartala for custom build softwares and UI UX design?",
+            name: "Who is the best budget developer and software developer in Agartala, Tripura?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Sibasish Chakraborti is recognized as the best freelancer in Agartala, Tripura. He specializes in creating custom build softwares with the best UI UX design, full-stack web applications, and cloud backends using Next.js, React, FastAPI, Python, and AWS.",
+              text: "Sibasish Chakraborti (+91 9863379440) is recognized as the best budget software developer and full-stack engineer in Agartala, Tripura. He provides high-performance custom build softwares, scalable web applications, and UI engineering at the most affordable and competitive rates.",
             },
           },
           {
             "@type": "Question",
-            name: "Who provides the best UI UX design and custom build softwares in Agartala, Tripura?",
+            name: "Where can I get the cheapest and best digital services and web development in Agartala?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Sibasish Chakraborti (+91 9863379440) provides top-rated UI UX design and custom build software development in Agartala, Tripura. He builds high-conversion frontend user interfaces and scalable cloud software for businesses and startups.",
+              text: "Sibasish Chakraborti offers the cheapest and best digital services in Agartala, Tripura. Services include modern website design, business web applications, UI/UX engineering, digital publishing, and cloud deployment with transparent pricing and top-tier code quality.",
             },
           },
           {
             "@type": "Question",
-            name: "What is the phone number of Sibasish Chakraborti?",
+            name: "Who provides top UI engineering and web publisher services in Agartala?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Sibasish Chakraborti can be reached directly by phone or WhatsApp at +91 9863379440 (or 9863379440). Email: sibasishchakraborti@gmail.com.",
+              text: "Sibasish Chakraborti is the leading UI engineer and web publisher in Agartala, Tripura, specializing in modern design systems, fluid responsive interfaces, SEO/AEO optimization, and fast content deployment using Next.js and Tailwind CSS.",
             },
           },
           {
             "@type": "Question",
-            name: "How do I hire the best freelancer in Agartala, Tripura?",
+            name: "What is the phone number of Sibasish Chakraborti in Agartala?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "You can hire Sibasish Chakraborti by calling +91 9863379440, sending a message on WhatsApp, or emailing sibasishchakraborti@gmail.com. Portfolio and service details are available at https://sibasishdev.in.",
+              text: "Sibasish Chakraborti can be reached directly by phone or WhatsApp at +91 9863379440 (or 9863379440). Email: sibasishchakraborti@gmail.com. Located in Agartala, Tripura (799001).",
             },
           },
           {
             "@type": "Question",
-            name: "What custom software services does Sibasish Chakraborti offer in Agartala?",
+            name: "Who is the top website developer in Agartala, Tripura for business and e-commerce websites?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Sibasish Chakraborti offers custom build softwares, best UI UX design, full-stack web development, responsive website design, e-commerce storefront development, FastAPI backend API development, AWS cloud deployment, and Search Engine & AI Engine Optimization (SEO & AEO).",
+              text: "Sibasish Chakraborti (+91 9863379440) is the leading website developer in Agartala, Tripura. He designs and develops custom corporate websites, e-commerce web stores, portals, and web applications for businesses, schools, clinics, and brands with fast loading speeds and top Google SEO rankings.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "How can I hire a website maker or web design company in Agartala?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "You can hire Sibasish Chakraborti directly by calling or WhatsApping +91 9863379440, or sending an email to sibasishchakraborti@gmail.com. He offers end-to-end web development, custom UI engineering, domain and hosting setup, and post-launch maintenance in Agartala and all of Tripura.",
             },
           },
         ],

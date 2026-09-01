@@ -146,7 +146,7 @@ export default function ContactSection() {
       id="contact"
       ref={containerRef}
       aria-labelledby="contact-heading"
-      className="relative w-full min-h-[100dvh] bg-[#050505] overflow-hidden flex flex-col items-center justify-center pt-28 pb-24 px-8 md:px-12 lg:px-20 z-10"
+      className="relative w-full min-h-[100dvh] bg-[#050505] overflow-hidden flex flex-col items-center justify-center pt-28 pb-24 px-5 sm:px-8 md:px-12 lg:px-20 z-10"
     >
       <div
         aria-hidden="true"
@@ -158,25 +158,24 @@ export default function ContactSection() {
       </div>
       {/* Crawlable SEO content */}
       <div className="sr-only">
-        <h3>Contact Sibasish Chakraborti — Hire the Best Software Engineer & Web Developer in Agartala, Tripura</h3>
-        <p>Get in touch with Sibasish Chakraborti, the best software engineer, full-stack web developer, and web designer in Agartala, Tripura. Available for software engineering roles, web development projects, full-time positions, and technical consulting.</p>
-        <p>Services: Software engineering, web application development, UI/UX design, e-commerce solutions, FastAPI backend development, cloud deployment, and SEO/AEO optimization. Serving clients in Agartala, Tripura, Northeast India, and globally.</p>
-        <p>Contact: Email — sibasishchakraborti@gmail.com. Phone — +91 9863379440. WhatsApp — +91 9863379440. LinkedIn — Sibasish Chakraborti.</p>
-        <p>Location: Agartala, Tripura, India — 799001. The top software engineer and freelance web developer in Tripura for hire.</p>
+        <h3>Contact Sibasish Chakraborti — Best Budget Developer, UI Engineer &amp; Web Publisher in Agartala, Tripura</h3>
+        <p>Get in touch with Sibasish Chakraborti (+91 9863379440), the best budget developer, software developer, UI engineer, and web publisher in Agartala, Tripura. Providing the cheapest and best digital services, custom build softwares, and full-stack software development.</p>
+        <p>Services: Best budget software development, UI engineering, web publishing, digital services, Next.js web applications, FastAPI backend development, and cloud deployment in Agartala, Tripura, and across India.</p>
+        <p>Contact: Email — sibasishchakraborti@gmail.com. Phone / WhatsApp — +91 9863379440. Direct location: Agartala, Tripura, India — 799001.</p>
       </div>
 
       <div className="relative z-10 w-full max-w-[1500px] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24">
         <div className="flex-1 flex flex-col justify-center">
           <div className="contact-reveal flex items-center gap-4 mb-8">
-            <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
-            <span className="text-white/60 text-[10px] md:text-xs tracking-[0.3em] font-semibold uppercase">
-              Available for Freelance & Full-Time
+            <div className="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse" />
+            <span className="text-white/70 text-[10px] md:text-xs tracking-[0.3em] font-mono font-semibold uppercase">
+              Available for Freelance &amp; Full-Time
             </span>
           </div>
 
           <h2
             id="contact-heading"
-            className="text-4xl md:text-7xl lg:text-[6rem] leading-[0.95] font-bold text-white tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)] mb-8"
+            className="text-4xl sm:text-5xl md:text-7xl lg:text-[6rem] leading-[0.95] font-orbitron font-bold text-white tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)] mb-8"
           >
             <div className="overflow-hidden">
               <div className="headline-line">LET&apos;S WORK</div>
@@ -194,19 +193,19 @@ export default function ContactSection() {
             </div>
           </h2>
 
-          <p className="contact-reveal text-white/60 text-sm md:text-base leading-relaxed max-w-md font-light">
+          <p className="contact-reveal text-white/70 text-sm md:text-base leading-relaxed max-w-md font-light">
             Whether you have a fully formed project or just an idea, I&apos;d love to hear about it. Let&apos;s discuss how we can bring your vision to life.
           </p>
 
           <div className="contact-reveal mt-8 mb-4">
-            <p className="text-white/40 text-xs tracking-wider uppercase mb-3 font-semibold">In a hurry?</p>
-            <a href="tel:+919863379440" className="inline-flex items-center gap-4 px-6 py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl transition-all group active:scale-[0.98]">
-              <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
+            <p className="text-white/40 text-xs tracking-wider uppercase mb-3 font-mono font-semibold">In a hurry?</p>
+            <a href="tel:+919863379440" className="inline-flex items-center gap-4 px-6 py-4 bg-white/5 hover:bg-white/10 border border-white/15 rounded-2xl transition-all group active:scale-[0.98] shadow-lg">
+              <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0">
                 <Phone className="w-6 h-6 text-blue-400 group-hover:scale-110 transition-transform" />
               </div>
               <div>
-                <p className="text-white/60 text-xs font-medium uppercase tracking-wider mb-1">Call me directly</p>
-                <p className="text-white text-xl font-bold tracking-wide">+91 9863379440</p>
+                <p className="text-white/60 text-xs font-mono font-medium uppercase tracking-wider mb-1">Call directly</p>
+                <p className="text-white text-lg sm:text-xl font-mono font-bold tracking-wide">+91 9863379440</p>
               </div>
             </a>
           </div>

@@ -6,8 +6,9 @@
 
 @theme inline {
   --font-sans: var(--font-sans);
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-orbitron), var(--font-sans), sans-serif;
   --font-mono: var(--font-dm-mono), ui-monospace, monospace;
+  --font-orbitron: var(--font-orbitron), sans-serif;
 }
 
 * {

@@ -19,20 +19,22 @@ export default function Navbar() {
 
   const closeMenu = useCallback(() => {
     setIsMenuOpen(false);
+    document.body.classList.remove("menu-open");
   }, []);
 
   return (
     <>
       <nav
         aria-label="Primary"
-        className="fixed top-0 inset-x-0 z-[110] h-20 flex items-center justify-between px-8 md:px-8 lg:px-16 transition-all duration-500 ease-out bg-transparent border-b border-transparent"
+        className="fixed top-0 inset-x-0 z-[110] py-4 md:py-6 px-5 sm:px-8 md:px-12 lg:px-20 flex items-center justify-between transition-all duration-500 ease-out bg-black/20 md:bg-transparent backdrop-blur-md md:backdrop-blur-none border-b border-white/[0.04] md:border-transparent"
       >
         <a
           href="#home"
           aria-label="Go to home section"
-          className="font-mono text-white text-sm tracking-[0.3em] uppercase select-none"
+          className="font-orbitron text-white text-base md:text-lg font-bold tracking-[0.35em] uppercase select-none group flex items-center gap-1.5 transition-colors hover:text-blue-400 drop-shadow-[0_0_12px_rgba(255,255,255,0.25)]"
         >
-          SIV.dev
+          <span className="text-blue-400 font-mono text-sm group-hover:translate-x-0.5 transition-transform">&gt;</span>
+          SIV<span className="text-blue-400">.</span>DEV
         </a>
 
         <div className="hidden md:flex items-center gap-10">
@@ -40,7 +42,7 @@ export default function Navbar() {
             <a
               key={link}
               href={`#${link.toLowerCase()}`}
-              className="font-mono text-[11px] tracking-[0.25em] uppercase text-white/40 hover:text-white transition-colors duration-300"
+              className="font-mono text-xs md:text-sm tracking-[0.25em] uppercase text-white/50 hover:text-white font-medium transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.7)]"
             >
               {link}
             </a>
@@ -50,7 +52,7 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Open resume PDF in a new tab"
-            className="font-mono border border-white/20 px-5 py-2 text-[10px] tracking-[0.3em] uppercase text-white hover:bg-white hover:text-black transition-all duration-300"
+            className="font-mono border border-white/25 px-6 py-2.5 rounded-lg text-xs tracking-[0.3em] uppercase text-white font-semibold hover:bg-white hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:shadow-[0_0_25px_rgba(255,255,255,0.3)]"
           >
             Resume
           </a>
@@ -91,8 +93,17 @@ export default function Navbar() {
             <a
               key={link}
               href={`#${link.toLowerCase()}`}
-              onClick={closeMenu}
-              className="font-mono text-2xl uppercase tracking-widest text-white hover:text-white/60 transition-colors duration-300"
+              onClick={(e) => {
+                e.preventDefault();
+                closeMenu();
+                const target = document.getElementById(link.toLowerCase());
+                if (target) {
+                  setTimeout(() => {
+                    target.scrollIntoView({ behavior: "smooth" });
+                  }, 120);
+                }
+              }}
+              className="font-mono text-2xl uppercase tracking-widest text-white hover:text-blue-400 transition-colors duration-300"
               style={{
                 opacity: isMenuOpen ? 1 : 0,
                 transform: isMenuOpen ? "translateY(0)" : "translateY(20px)",
