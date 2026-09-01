@@ -429,10 +429,18 @@ export default function HeroSection() {
                 type="button"
                 onClick={() => {
                   setIsContactOpen(false);
-                  const contactSection = document.getElementById("contact");
-                  if (contactSection) {
-                    contactSection.scrollIntoView({ behavior: "smooth" });
+                  const lenis = (window as unknown as { __lenis?: { scrollTo: (target: string, options?: { offset?: number; duration?: number }) => void } }).__lenis;
+                  if (lenis) {
+                    lenis.scrollTo("#contact", { offset: 0, duration: 1.2 });
+                  } else {
+                    const contactSection = document.getElementById("contact");
+                    if (contactSection) {
+                      contactSection.scrollIntoView({ behavior: "smooth" });
+                    }
                   }
+                  setTimeout(() => {
+                    ScrollTrigger.refresh();
+                  }, 200);
                 }}
                 className="relative z-10 w-full py-3.5 px-4 rounded-xl bg-white hover:bg-white/95 text-black font-mono text-xs uppercase font-bold tracking-[0.2em] flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] active:scale-[0.98] cursor-pointer"
               >

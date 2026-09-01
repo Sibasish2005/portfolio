@@ -36,29 +36,39 @@ export default function ContactSection() {
         },
       });
 
-      gsap.from(".contact-reveal", {
-        y: 30,
-        opacity: 0,
-        duration: 1.2,
-        stagger: 0.15,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 75%",
-        },
-      });
+      gsap.fromTo(
+        ".contact-reveal",
+        { y: 24, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.06,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 90%",
+            once: true,
+          },
+        }
+      );
 
-      gsap.from(".headline-line", {
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.15,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 75%",
-        },
-      });
+      gsap.fromTo(
+        ".headline-line",
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.08,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 90%",
+            once: true,
+          },
+        }
+      );
 
       floatingElementsRef.current.forEach((element) => {
         gsap.to(element, {
@@ -72,7 +82,37 @@ export default function ContactSection() {
       });
     }, containerRef);
 
-    return () => context.revert();
+    // Guaranteed fallback: ensure elements are never stuck at opacity 0
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            gsap.to([".contact-reveal", ".headline-line"], {
+              opacity: 1,
+              y: 0,
+              duration: 0.5,
+              stagger: 0.04,
+              overwrite: "auto",
+            });
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 200);
+
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+      context.revert();
+    };
   }, []);
 
   const handleMouseEnter = (target: HTMLElement) => {
