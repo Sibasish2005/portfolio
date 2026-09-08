@@ -216,7 +216,7 @@ export const portfolioProjects: PortfolioProject[] = [
       "Designed scalable multi-role architecture for real-world governance digitization.",
     stack: ["Next.js", "FastAPI", "PostgreSQL"],
     liveUrl: "https://www.digipanch.live",
-    image: "/project-section/digi-panch.png",
+    image: "/project-section/digi-panch.webp",
   },
   {
     slug: "poyodhara",
@@ -231,7 +231,7 @@ export const portfolioProjects: PortfolioProject[] = [
     impact: "Improved product presentation and online business visibility.",
     stack: ["React", "Next.js", "Tailwind CSS"],
     liveUrl: "https://poyodhara.vercel.app/",
-    image: "/project-section/poyodhara.png",
+    image: "/project-section/poyodhara.webp",
   },
   {
     slug: "beyond-pinks",
@@ -247,6 +247,6 @@ export const portfolioProjects: PortfolioProject[] = [
       "Improved product discoverability and modern shopping interaction.",
     stack: ["Next.js", "React", "Tailwind CSS"],
     liveUrl: "https://byondpinks.vercel.app/",
-    image: "/project-section/beyound-pinks.png",
+    image: "/project-section/beyound-pinks.webp",
   },
 ];

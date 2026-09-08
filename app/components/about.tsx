@@ -249,7 +249,7 @@ export default function AboutSection() {
 
           <Image
             ref={leftImageRef}
-            src="/about-section/about-section.png"
+            src="/about-section/about-section.webp"
             alt="Portrait of Sibasish Chakraborti"
             fill
             sizes="(max-width: 768px) 100vw, 50vw"

@@ -170,7 +170,7 @@ export default function HeroSection() {
 
         <div className="absolute inset-0">
           <NextImage
-            src={isMobile ? "/mobile-hero-1.png" : "/hero-section/hero image.png"}
+            src={isMobile ? "/mobile-hero-1.webp" : "/hero-section/hero image.webp"}
             alt="Hero background"
             fill
             priority

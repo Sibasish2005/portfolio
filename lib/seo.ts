@@ -94,7 +94,7 @@ export function getHomeJsonLd() {
           "Best Freelancer in Agartala",
         ],
         url: siteUrl,
-        image: absoluteUrl("/about-section/about-section.png"),
+        image: absoluteUrl("/about-section/about-section.webp"),
         jobTitle: "Best Freelancer, Software Engineer & UI/UX Designer",
         description: siteConfig.description,
         email: siteConfig.email,
@@ -198,7 +198,7 @@ export function getHomeJsonLd() {
         url: siteUrl,
         telephone: siteConfig.phone,
         email: siteConfig.email,
-        image: absoluteUrl("/about-section/about-section.png"),
+        image: absoluteUrl("/about-section/about-section.webp"),
         founder: { "@id": personId },
         address: {
           "@type": "PostalAddress",
@@ -344,7 +344,7 @@ export function getHomeJsonLd() {
         mainEntity: { "@id": personId },
         primaryImageOfPage: {
           "@type": "ImageObject",
-          url: absoluteUrl("/about-section/about-section.png"),
+          url: absoluteUrl("/about-section/about-section.webp"),
         },
         hasPart: projectNodes.map((project) => ({ "@id": project["@id"] })),
         dateCreated: "2024-01-01",

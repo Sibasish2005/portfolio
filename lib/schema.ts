@@ -1,6 +1,4 @@
-import { Certificate } from "node:crypto";
-import {z} from "zod";
-import { describe } from "zod/v4/core";
+import { z } from "zod";
 
 
 export const ExperienceSchema = z.object({

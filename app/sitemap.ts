@@ -13,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 1.0,
       images: [
-        absoluteUrl("/about-section/about-section.png"),
+        absoluteUrl("/about-section/about-section.webp"),
         ...portfolioProjects.map((project) => absoluteUrl(project.image)),
       ],
     },
